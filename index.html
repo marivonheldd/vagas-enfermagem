@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vagas de Enfermagem · por @enfmarivonheld</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#2C5530; --verde-esc:#1e3b21; --verde-claro:#e8efe9;
+  --laranja:#2C5530; --laranja-esc:#2C5530; --laranja-claro:#e8efe9; --vinho:#471323;
+  --texto:#1f2937; --cinza:#6b7280; --fundo:#471323; --borda:#e5e7eb;
+  --r-norte:#bfd1c1; --r-nordeste:#8fae93; --r-centro-oeste:#638d68; --r-sudeste:#42704a; --r-sul:#2C5530;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--fundo);color:var(--texto);line-height:1.45;padding-bottom:92px}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:600px;margin:0 auto;padding:0 16px}
+.tela{display:none}
+.tela.ativa{display:block;animation:entra .25s ease-out}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- Topo ---------- */
+header{background:var(--verde);box-shadow:0 8px 24px rgba(0,0,0,.2);color:#fff;padding:22px 0 30px;border-radius:0 0 24px 24px}
+.marca{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+h1{font-size:25px;font-weight:800;margin:6px 0 4px;line-height:1.2}
+.sub{font-size:14px;opacity:.9}
+.pill{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;background:rgba(255,255,255,.16);padding:5px 11px;border-radius:99px}
+.pulso{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.7);animation:pulso 1.6s infinite}
+@keyframes pulso{70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+
+/* ---------- Mapa ---------- */
+.mapa-card{background:#fff;border:none;box-shadow:0 10px 30px rgba(0,0,0,.18);border-radius:20px;padding:16px 12px 10px;margin-top:-16px;position:relative}
+.mapa-titulo{text-align:center;font-weight:700;font-size:15px}
+.mapa-dica{text-align:center;font-size:13px;color:var(--cinza);margin-bottom:6px}
+#mapa{width:100%;height:auto;display:block}
+#mapa .estado{stroke:#fff;stroke-width:1.1;transition:fill .15s, opacity .15s;cursor:pointer}
+#mapa g[data-reg="norte"] .estado{fill:var(--r-norte)}
+#mapa g[data-reg="nordeste"] .estado{fill:var(--r-nordeste)}
+#mapa g[data-reg="centro-oeste"] .estado{fill:var(--r-centro-oeste)}
+#mapa g[data-reg="sudeste"] .estado{fill:var(--r-sudeste)}
+#mapa g[data-reg="sul"] .estado{fill:var(--r-sul)}
+#mapa g.foco .estado{fill:var(--vinho)!important}
+#mapa.tem-foco g:not(.foco) .estado{opacity:.55}
+.selo-mapa{pointer-events:none}
+.selo-mapa rect{fill:#fff;stroke:var(--borda)}
+.selo-mapa .nome{font-size:15px;font-weight:800;fill:var(--texto)}
+.selo-mapa .qtd{font-size:12.5px;font-weight:600;fill:var(--verde)}
+
+.regioes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.reg-btn{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid transparent;border-radius:14px;padding:12px;text-align:left}
+.reg-btn:hover{border-color:var(--verde)}
+.reg-cor{width:14px;height:14px;border-radius:4px;flex:none}
+.reg-btn b{display:block;font-size:14px}
+.reg-btn small{font-size:12px;color:var(--cinza)}
+.reg-btn.remoto{grid-column:1/-1;justify-content:center;background:var(--verde);color:#fff;border-color:transparent}
+.reg-btn.remoto small{color:#d6e4d7}
+
+/* ---------- Bloco de currículo (destaque) ---------- */
+.cv-hero{background:linear-gradient(135deg,#2C5530,#3a6b40 60%,#4d8253);color:#fff;border-radius:20px;padding:22px 20px;margin:18px 0;position:relative;overflow:hidden}
+.cv-hero::after{content:"📄";position:absolute;right:-6px;bottom:-14px;font-size:92px;opacity:.18;transform:rotate(-12deg)}
+.cv-hero .eyebrow{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;opacity:.9}
+.cv-hero h2{font-size:21px;line-height:1.22;margin:6px 0 8px;font-weight:800}
+.cv-hero p{font-size:14px;opacity:.95;margin-bottom:14px;max-width:420px}
+.cv-hero ul{list-style:none;font-size:14px;margin-bottom:16px}
+.cv-hero li{padding:2px 0}
+.cv-hero li::before{content:"✓  ";font-weight:800}
+.btn{display:block;width:100%;text-align:center;padding:14px;border-radius:12px;font-weight:700;font-size:15px;border:none}
+.btn-branco{background:#fff;color:var(--laranja-esc)}
+.btn-vaga{background:var(--verde);color:#fff}
+.btn-cv{background:var(--laranja);color:#fff}
+.btn-contorno{background:#fff;color:var(--verde);border:2px solid var(--verde)}
+.btn-sec{background:transparent;color:var(--cinza);font-weight:600;font-size:14px;padding:10px}
+
+/* ---------- Página da região ---------- */
+.topo-reg{background:var(--verde);box-shadow:0 8px 24px rgba(0,0,0,.2);color:#fff;padding:14px 0 22px;border-radius:0 0 24px 24px}
+.voltar{background:rgba(255,255,255,.16);color:#fff;border:none;border-radius:99px;padding:7px 13px;font-size:13px;font-weight:600}
+.topo-reg h1{margin-top:12px}
+.cv-faixa{display:flex;gap:12px;align-items:center;background:#fff;border:2px solid #8fae93;border-radius:16px;padding:14px;margin:14px 0 4px}
+.cv-faixa .ico{font-size:28px;flex:none}
+.cv-faixa p{font-size:13.5px;line-height:1.35;flex:1}
+.cv-faixa strong{display:block;font-size:15px;color:var(--laranja-esc)}
+.cv-faixa a{flex:none;background:var(--laranja);color:#fff;font-weight:700;font-size:13px;padding:10px 12px;border-radius:10px}
+
+.abas{display:grid;grid-template-columns:1fr 1fr;background:#5e2333;border-radius:14px;padding:4px;margin:14px 0 10px;position:sticky;top:8px;z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.aba{border:none;background:transparent;padding:11px 6px;border-radius:10px;font-weight:700;font-size:14.5px;color:#f0dfe4}
+.aba.ativa{background:#fff;color:var(--texto);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.aba span{display:inline-block;min-width:22px;font-size:12px;background:var(--verde-claro);color:var(--verde-esc);border-radius:99px;padding:1px 7px;margin-left:4px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid transparent;background:#fff;padding:7px 13px;border-radius:99px;font-size:13px;font-weight:600;color:var(--texto)}
+.chip.ativo{background:var(--verde);border-color:#fff;color:#fff}
+
+.lista{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.vaga{background:#fff;border:1px solid transparent;border-radius:16px;padding:16px}
+.vaga.quente{border-color:#b9cdbb;box-shadow:0 0 0 3px #e8efe9}
+.vaga-topo{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.vaga h3{font-size:17px;font-weight:700;line-height:1.3}
+.empresa{font-size:14px;color:var(--cinza);margin-top:2px}
+.uf{font-size:12px;font-weight:800;background:var(--verde-claro);color:var(--verde-esc);padding:3px 8px;border-radius:6px}
+.infos{display:flex;flex-wrap:wrap;gap:6px 14px;margin:10px 0 12px;font-size:13px;color:var(--cinza)}
+.tempo{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:12px;color:var(--cinza)}
+.janela{background:var(--laranja-claro);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.janela-linha{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:var(--laranja-esc)}
+.janela-linha .relogio{font-variant-numeric:tabular-nums;font-size:15px}
+.barra-prog{height:6px;background:#d3e0d4;border-radius:99px;margin-top:7px;overflow:hidden}
+.barra-prog i{display:block;height:100%;background:var(--laranja);border-radius:99px}
+.janela small{display:block;font-size:12px;color:#1e3b21;margin-top:6px;font-weight:500}
+.info-ico{border:none;background:none;color:var(--laranja-esc);font-weight:800;font-size:12px;text-decoration:underline;padding:0}
+
+.oferta-antiga{background:#fff;color:var(--texto);border:2px solid var(--verde);border-radius:16px;padding:18px}
+.oferta h3{font-size:18px;margin-bottom:6px;line-height:1.25}
+.oferta p{font-size:14px;opacity:.92;margin-bottom:14px}
+.vazio{text-align:center;padding:34px 12px;color:var(--cinza);font-size:15px;background:#fff;border:1px dashed var(--borda);border-radius:16px}
+
+/* ---------- Barra fixa ---------- */
+.barra{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--borda);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:10;box-shadow:0 -6px 20px rgba(0,0,0,.07)}
+.barra .wrap{display:flex;align-items:center;gap:12px;padding:0}
+.barra p{font-size:13px;line-height:1.3;flex:1}
+.barra strong{display:block;font-size:14px}
+.barra a{flex:none;background:var(--laranja);color:#fff;font-weight:700;font-size:14px;padding:11px 16px;border-radius:10px}
+
+/* ---------- Pop-ups ---------- */
+.fundo-modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:flex-end;justify-content:center;z-index:30}
+.fundo-modal.aberto{display:flex}
+.modal{background:#fff;width:100%;max-width:600px;border-radius:24px 24px 0 0;padding:24px 20px calc(20px + env(safe-area-inset-bottom));animation:sobe .25s ease-out}
+@keyframes sobe{from{transform:translateY(50px);opacity:0}to{transform:none;opacity:1}}
+.modal .emoji{font-size:34px}
+.modal .eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--laranja-esc);margin-top:6px}
+.modal h3{font-size:20px;margin:6px 0 8px;line-height:1.25}
+.modal p{font-size:14.5px;color:var(--cinza);margin-bottom:18px}
+.modal .btn+.btn{margin-top:10px}
+.relogio-grande{display:flex;justify-content:center;gap:8px;margin:4px 0 16px}
+.relogio-grande div{background:var(--laranja-claro);border-radius:10px;padding:8px 10px;text-align:center;min-width:64px}
+.relogio-grande b{display:block;font-size:22px;color:var(--laranja-esc);font-variant-numeric:tabular-nums}
+.relogio-grande small{font-size:11px;color:var(--cinza)}
+
+.autora{display:inline-flex;align-items:center;gap:8px;margin-top:12px;margin-left:6px;font-size:12.5px;background:#FAFAFF;color:var(--verde);padding:4px 12px 4px 4px;border-radius:99px}
+.autora .av{width:22px;height:22px;border-radius:50%;background:#471323;color:#FAFAFF;display:grid;place-items:center;font-weight:800;font-size:11px}
+.autora b{font-weight:800}
+.credito{font-size:13px;color:#fff;margin-bottom:4px}
+.credito a{color:#fff;font-weight:800;text-decoration:underline}
+/* ---------- Produtos ---------- */
+.produtos{margin:16px 0 6px}
+.mapa-card .regioes{margin-top:8px}
+.mapa-card .reg-btn{background:#f3f6f3;padding:10px}
+.mapa-card .reg-btn.remoto{background:var(--verde)}
+.cta-final,.oferta{background:#fff;border-radius:22px;padding:24px 20px;margin-top:14px;text-align:center;border:3px solid #fff;box-shadow:0 0 0 3px var(--verde),0 16px 36px rgba(0,0,0,.3)}
+.cta-emoji{font-size:38px;line-height:1}
+.cta-final h3,.oferta h3{font-size:24px;line-height:1.15;color:var(--vinho);font-weight:800;margin:10px 0 8px}
+.cta-final p,.oferta p{font-size:14.5px;color:var(--texto);margin-bottom:16px}
+.btn-pulsa{background:var(--verde);color:#fff;font-size:16px;padding:16px;animation:pulsaBtn 2s infinite}
+@keyframes pulsaBtn{0%{box-shadow:0 0 0 0 rgba(44,85,48,.55)}70%{box-shadow:0 0 0 14px rgba(44,85,48,0)}100%{box-shadow:0 0 0 0 rgba(44,85,48,0)}}
+.prod-intro{text-align:center;color:#fff;padding:6px 4px 14px}
+.prod-intro .eyebrow{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.12);padding:5px 12px;border-radius:99px}
+.prod-intro h2{font-size:26px;line-height:1.15;margin:12px 0 8px;font-weight:800}
+.prod-intro p{font-size:14.5px;color:#f0dfe4;max-width:440px;margin:0 auto}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:12px 8px;text-align:center;color:#fff}
+.stat b{display:block;font-size:22px;font-weight:800;line-height:1.1}
+.stat span{display:block;font-size:11px;line-height:1.3;color:#ecd9de;margin-top:4px}
+.stat.destaque{background:#fff;color:var(--verde)}
+.stat.destaque span{color:var(--cinza)}
+.prod-grid{display:grid;gap:12px}
+@media(min-width:560px){.prod-grid{grid-template-columns:1fr 1fr}}
+.prod{background:#fff;border-radius:20px;padding:20px 18px;position:relative;display:flex;flex-direction:column}
+.prod.top{background:linear-gradient(160deg,#2C5530,#3c7042);color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.28)}
+.faixa-top{position:absolute;top:-11px;right:16px;background:#fff;color:var(--vinho);font-size:11.5px;font-weight:800;padding:5px 10px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.18)}
+.prod-tag{align-self:flex-start;font-size:12px;font-weight:700;background:var(--verde-claro);color:var(--verde);padding:4px 10px;border-radius:99px}
+.prod.top .prod-tag{background:rgba(255,255,255,.16);color:#fff}
+.prod h3{font-size:20px;font-weight:800;margin:10px 0 6px;line-height:1.2}
+.prod p{font-size:14px;color:var(--cinza);margin-bottom:10px}
+.prod.top p{color:#dce8dd}
+.prod ul{list-style:none;font-size:13.5px;margin-bottom:14px}
+.prod li{padding:3px 0 3px 22px;position:relative}
+.prod li::before{content:"✓";position:absolute;left:0;font-weight:800;color:var(--verde)}
+.prod.top li::before{color:#bfe3c3}
+.preco{font-size:30px;font-weight:800;margin-top:auto;line-height:1}
+.preco small{font-size:13px;font-weight:600;opacity:.7}
+.retorno{font-size:12.5px;margin:8px 0 14px;background:var(--verde-claro);color:var(--verde-esc);padding:8px 10px;border-radius:10px}
+.prod.top .retorno{background:rgba(255,255,255,.14);color:#fff}
+
+.calc{background:#fff;border-radius:20px;padding:18px;margin-top:12px}
+.calc-topo{display:flex;gap:12px;align-items:center}
+.calc-ico{font-size:28px;background:var(--verde-claro);width:48px;height:48px;border-radius:14px;display:grid;place-items:center;flex:none}
+.calc h3{font-size:17px;line-height:1.2}
+.calc-topo p{font-size:13px;color:var(--cinza)}
+.salario{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 8px}
+.salario small{font-size:13px;color:var(--cinza);font-weight:600}
+.salario b{font-size:26px;color:var(--verde);font-weight:800;font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:99px;outline:none;background:#dfe7e0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:4px solid var(--verde);box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:4px solid var(--verde);cursor:pointer}
+.escala{display:flex;justify-content:space-between;font-size:11px;color:var(--cinza);margin-top:6px}
+.calc-res{margin-top:14px;display:grid;gap:12px}
+.lr-topo{display:flex;justify-content:space-between;gap:8px;font-size:13px}
+.lr-topo b{color:var(--verde);white-space:nowrap}
+.lr-barra{height:10px;background:#eef2ee;border-radius:99px;margin-top:5px;overflow:hidden}
+.lr-barra i{display:block;height:100%;border-radius:99px;transition:width .2s}
+.lr-barra i.primeiro{background:#8fae93}
+.lr-barra i.impacto{background:var(--verde)}
+.calc-extra{margin-top:14px;font-size:13.5px;background:#f7eef0;color:var(--vinho);padding:12px;border-radius:12px;border-left:4px solid var(--vinho)}
+.fonte{font-size:11px;color:#d9c2c8;text-align:center;margin-top:10px}
+
+/* opções no pop-up */
+.opcoes{display:grid;gap:10px;margin-bottom:12px}
+.opcao{display:flex;align-items:center;gap:12px;border:2px solid var(--borda);border-radius:16px;padding:12px 14px;transition:transform .1s}
+.opcao:active{transform:scale(.98)}
+.opcao.top{border-color:var(--verde);background:var(--verde-claro)}
+.op-ico{font-size:26px;flex:none}
+.op-txt{flex:1;display:flex;flex-direction:column}
+.op-txt b{font-size:15.5px}
+.op-txt small{font-size:13px;color:var(--cinza)}
+.op-txt em{font-style:normal;font-size:12px;color:var(--verde);font-weight:700;margin-top:3px}
+.op-seta{font-size:22px;font-weight:800;color:var(--verde)}
+.duvida{display:block;text-align:center;font-size:13.5px;color:var(--cinza);margin-top:12px;font-weight:600}
+.modal{position:relative;max-height:92vh;overflow-y:auto}
+.modal .eyebrow{padding-right:40px}
+.x{position:absolute;top:12px;right:14px;width:34px;height:34px;border-radius:50%;border:none;background:#f1f1f4;font-size:22px;line-height:1;color:var(--cinza)}
+.cv-faixa button,.barra button{flex:none;background:var(--laranja);color:#fff;font-weight:700;font-size:14px;padding:11px 14px;border-radius:10px;border:none}
+
+footer{text-align:center;font-size:12px;color:#e6cfd5;margin:26px 0 8px}
+</style>
+</head>
+<body>
+
+<script src="vagas.js"></script>
+
+<!-- ================= TELA 1: MAPA ================= -->
+<section class="tela" id="tela-inicio">
+  <header>
+    <div class="wrap">
+      <div class="marca">Método Rota</div>
+      <h1>Vagas de Enfermagem 🩺</h1>
+      <div class="sub">Estágios e empregos reunidos por região, atualizados sempre.</div>
+      <div class="pill"><span class="pulso"></span><span id="pillNovas"></span></div>
+      <a class="autora" href="https://instagram.com/enfmarivonheld"><span class="av">M</span><span>Site criado por <b>@enfmarivonheld</b></span></a>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="mapa-card">
+      <div class="mapa-titulo">Onde você quer trabalhar?</div>
+      <div class="mapa-dica">Toque na sua região 👇</div>
+      <svg id="mapa" role="img" aria-label="Mapa do Brasil por regiões"></svg>
+      <div class="regioes" id="botoesRegiao"></div>
+    </div>
+
+    <section class="produtos" id="produtos">
+      <div class="prod-intro">
+        <div class="eyebrow">Achou a vaga dos sonhos?</div>
+        <h2>Quer aplicar, mas seu currículo não ajuda?</h2>
+        <p>Antes de qualquer entrevista, é o seu currículo que fala por você. Escolha como deixar o seu pronto:</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>7,4s</b><span>é o tempo médio da 1ª olhada do recrutador no seu currículo*</span></div>
+        <div class="stat"><b>24h</b><span>primeiras horas da vaga: quanto antes, melhor</span></div>
+        <div class="stat destaque"><b id="statDias">–</b><span>de trabalho pagam o Currículo de Impacto</span></div>
+      </div>
+
+      <div class="prod-grid" id="prodGrid"></div>
+
+      <div class="calc">
+        <div class="calc-topo">
+          <span class="calc-ico">🧮</span>
+          <div><h3>Em quantos dias o currículo se paga?</h3><p>Arraste para o salário da vaga que você quer:</p></div>
+        </div>
+        <div class="salario"><small>Salário</small><b id="salTxt">R$ 4.500</b></div>
+        <input type="range" id="sal" min="1500" max="12000" step="100" value="4500" aria-label="Salário">
+        <div class="escala"><span>R$ 1.500</span><span>R$ 12.000</span></div>
+        <div class="calc-res" id="calcRes"></div>
+        <div class="calc-extra" id="calcExtra"></div>
+      </div>
+      <div class="cta-final">
+        <div class="cta-emoji">🎯</div>
+        <h3>Não perca a vaga dos seus sonhos por bobeira.</h3>
+        <p>Faça seu <b>Currículo de Impacto</b> e se candidate com a segurança de quem está pronto(a) para ser chamado(a).</p>
+        <a class="btn btn-pulsa" id="ctaImpacto" href="#">Quero meu Currículo de Impacto →</a>
+      </div>
+      <p class="fonte">*Estudo de eye-tracking da Ladders (2018). Cálculo considera 22 dias úteis por mês.</p>
+    </section>
+    <footer><div class="credito">Site criado por <a href="https://instagram.com/enfmarivonheld">@enfmarivonheld</a> · Método Rota</div>Confira sempre os requisitos no anúncio oficial da vaga.</footer>
+  </main>
+</section>
+
+<!-- ================= TELA 2: REGIÃO ================= -->
+<section class="tela" id="tela-regiao">
+  <div class="topo-reg">
+    <div class="wrap">
+      <button class="voltar" id="btnVoltar">← Mapa</button>
+      <h1 id="regTitulo"></h1>
+      <div class="sub" id="regSub"></div>
+      <a class="autora" href="https://instagram.com/enfmarivonheld"><span class="av">M</span><span>Vagas selecionadas por <b>@enfmarivonheld</b></span></a>
+    </div>
+  </div>
+  <main class="wrap">
+    <div class="cv-faixa">
+      <div class="ico">📄</div>
+      <p><strong>Quer aplicar, mas seu currículo não ajuda?</strong>Veja como deixar o seu pronto hoje.</p>
+      <button data-prod>Ver opções</button>
+    </div>
+
+    <div class="abas" id="abas">
+      <button class="aba" data-tipo="Estágio">🎓 Estágio<span id="nEst">0</span></button>
+      <button class="aba" data-tipo="Emprego">💼 Emprego<span id="nEmp">0</span></button>
+    </div>
+    <div class="chips" id="chipsUF"></div>
+    <div class="lista" id="lista"></div>
+    <footer><div class="credito">Site criado por <a href="https://instagram.com/enfmarivonheld">@enfmarivonheld</a> · Método Rota</div>Confira sempre os requisitos no anúncio oficial da vaga.</footer>
+  </main>
+</section>
+
+<!-- Barra fixa -->
+<div class="barra">
+  <div class="wrap">
+    <p><strong>Quer aplicar, mas o currículo não ajuda?</strong>Aprenda a fazer ou eu faço pra você.</p>
+    <button data-prod>Ver opções</button>
+  </div>
+</div>
+
+<!-- Pop-up: curiosidade 24h -->
+<div class="fundo-modal" id="modal24">
+  <div class="modal">
+    <div class="emoji">⏱️</div>
+    <div class="eyebrow">Curiosidade</div>
+    <h3>Sua chance aumenta se você se candidatar nas primeiras 24h</h3>
+    <p>Muitas empresas começam a analisar currículos assim que a vaga é publicada, e algumas encerram as inscrições antes do prazo quando já receberam candidatos suficientes. Por isso, priorize as vagas com o selo 🔥.</p>
+    <button class="btn btn-cv" data-prod>Meu currículo não está pronto</button>
+    <button class="btn btn-sec" data-fechar>Entendi, ver as vagas</button>
+  </div>
+</div>
+
+<!-- Pop-up: antes de ir para a vaga -->
+<div class="fundo-modal" id="modalVaga">
+  <div class="modal">
+    <button class="x" data-fechar aria-label="Fechar">×</button>
+    <div class="eyebrow" id="mvEyebrow">Antes de se candidatar</div>
+    <h3>Quer aplicar, mas seu currículo não ajuda?</h3>
+    <div class="relogio-grande" id="mvRelogio"></div>
+    <p id="mvTexto">Um recrutador decide em segundos. Não deixe o currículo ser o motivo do "não".</p>
+    <div class="opcoes" id="mvOpcoes"></div>
+    <a class="btn btn-contorno" id="mvLink" href="#">Meu currículo está ok, ir para a vaga →</a>
+    <a class="duvida" id="mvWhats" href="#">💬 Dúvida sobre essa vaga? Fale comigo</a>
+  </div>
+</div>
+
+<!-- Pop-up: produtos -->
+<div class="fundo-modal" id="modalProd">
+  <div class="modal">
+    <button class="x" data-fechar aria-label="Fechar">×</button>
+    <div class="emoji">📄✨</div>
+    <h3>Quer aplicar, mas seu currículo não ajuda?</h3>
+    <p>Escolha o caminho que combina com você:</p>
+    <div class="opcoes" id="mpOpcoes"></div>
+    <a class="duvida" data-whats href="#">💬 Ficou com dúvida? Fale comigo no WhatsApp</a>
+  </div>
+</div>
+
+<script>
+/* ================= MAPA (não precisa mexer) ================= */
+const LIMITE_DIAS=(CONFIG.diasNoSite||15)*864e5;
+for(let k=VAGAS.length-1;k>=0;k--){
+  const dt=new Date(String(VAGAS[k].postado).replace(" ","T")+":00");
+  if(isNaN(dt) || Date.now()-dt>LIMITE_DIAS) VAGAS.splice(k,1);
+}
+const MAPA = {"w":600,"h":598.9,"estados":[{"uf":"SP","nome":"S\u00e3o Paulo","reg":"sudeste","d":"M430.0,449.5L429.5,451.5L427.6,452.0L426.7,451.0L428.6,448.8L430.0,449.5ZM318.0,429.3L320.8,425.6L322.6,425.0L325.0,423.1L327.3,422.0L329.4,420.2L330.2,417.7L332.6,414.7L334.2,413.6L333.3,411.8L336.8,408.7L336.7,406.0L340.3,401.5L340.5,398.8L344.8,393.7L347.6,392.7L349.7,389.8L351.5,388.2L354.6,387.0L356.1,385.4L358.0,385.2L359.2,386.4L365.9,387.5L370.7,387.6L373.1,388.5L374.7,388.3L374.3,391.4L375.3,393.3L376.3,393.4L377.9,391.1L378.9,392.5L378.9,395.1L380.4,395.2L380.1,393.0L380.8,391.5L389.9,391.0L392.0,391.7L393.2,389.8L394.1,391.2L394.9,389.5L397.3,389.1L398.1,390.0L400.8,389.0L401.2,390.2L404.1,393.0L403.1,396.3L405.1,398.0L405.6,399.6L404.0,402.3L403.8,403.9L404.8,405.0L405.1,407.3L406.0,408.4L406.7,411.6L409.4,411.0L413.7,412.8L413.9,413.8L411.2,418.2L411.7,420.8L410.5,422.0L411.9,423.2L410.3,426.0L411.1,427.4L414.6,429.5L413.3,431.7L414.7,432.8L414.7,434.3L417.8,435.2L421.2,434.3L421.9,434.9L423.5,434.0L422.8,432.5L425.1,430.9L426.7,431.9L428.4,432.0L433.6,429.5L436.9,428.7L437.7,429.1L439.5,431.9L440.8,432.3L445.4,432.2L446.0,433.9L444.4,435.6L441.5,435.9L436.8,437.8L436.5,440.1L435.6,441.1L437.4,443.5L435.1,443.2L432.8,444.4L432.4,445.7L431.3,445.2L430.5,446.5L429.1,446.4L427.1,447.7L427.4,450.1L421.0,448.8L417.0,449.9L416.5,452.0L414.1,451.7L410.4,453.3L405.0,456.3L404.5,458.0L401.8,459.8L396.5,462.7L393.1,465.4L391.6,467.1L392.5,464.9L390.9,467.0L391.6,467.4L390.6,469.5L388.6,471.1L389.4,469.9L387.8,469.8L386.8,466.5L384.3,465.6L382.8,467.4L382.1,467.0L382.6,463.2L383.4,462.2L381.6,461.1L379.3,461.3L375.9,460.2L375.0,461.0L372.1,460.6L371.9,458.5L373.2,455.6L370.8,451.6L368.2,448.1L369.0,445.8L367.6,442.6L368.2,441.1L368.0,438.8L366.7,436.4L364.2,435.3L363.4,433.3L358.8,433.8L354.0,433.2L351.8,433.5L350.5,431.6L347.2,430.7L343.8,428.8L341.0,429.3L336.4,428.1L333.7,426.7L331.5,428.6L321.1,427.4L318.0,429.3Z","lx":373.0,"ly":414.4},{"uf":"MA","nome":"Maranh\u00e3o","reg":"nordeste","d":"M452.2,125.1L452.5,127.0L451.0,128.7L451.8,123.8L452.2,125.1ZM493.4,124.5L493.4,128.7L490.9,131.8L487.6,134.9L483.9,135.6L483.2,135.2L480.4,139.0L480.6,140.4L479.5,142.5L475.5,147.4L476.1,149.8L477.4,151.5L476.0,154.0L476.0,155.8L477.5,158.3L478.1,161.8L477.7,164.2L474.2,168.6L473.4,168.9L473.7,175.7L475.4,177.8L477.1,178.8L476.9,182.4L476.0,185.3L475.0,186.5L471.6,186.6L467.6,187.9L464.3,185.6L458.7,186.5L455.3,190.1L454.5,191.7L452.3,192.3L448.2,196.1L446.6,195.5L443.4,197.4L439.2,198.4L436.5,200.1L435.4,203.1L434.8,207.5L432.2,211.8L430.8,215.9L429.2,217.2L428.3,219.4L429.4,223.3L429.5,225.6L430.9,227.7L430.3,228.8L429.8,236.0L428.3,238.7L428.4,240.9L426.2,239.1L422.3,238.5L420.5,235.9L420.0,233.6L417.6,231.8L419.7,228.9L419.3,228.0L416.4,226.6L415.3,225.0L415.1,222.8L413.6,221.3L411.5,220.7L414.2,217.6L414.7,213.7L416.1,211.5L420.6,211.0L419.9,209.8L421.2,205.9L420.8,204.3L419.6,203.4L415.0,204.1L412.8,205.4L410.8,202.5L407.8,199.4L405.6,196.1L405.4,193.5L403.4,193.9L401.9,192.1L403.5,191.6L405.5,189.3L405.9,184.5L407.2,181.2L407.7,177.4L406.9,175.4L407.2,171.8L406.2,169.8L406.4,167.4L405.3,165.7L402.5,164.4L400.8,164.2L400.4,162.6L398.3,161.9L395.9,162.2L393.1,160.8L390.6,161.0L388.9,163.2L387.2,163.6L387.0,163.4L401.4,152.1L403.7,152.2L404.8,151.4L406.8,148.1L407.9,147.2L409.4,144.2L412.9,140.5L413.5,136.8L414.7,133.7L416.6,132.6L419.1,129.0L419.4,125.9L420.5,125.3L419.1,123.5L422.8,120.0L423.1,115.8L424.8,114.9L426.1,111.0L426.1,109.2L424.6,108.0L426.4,107.2L426.4,104.2L428.2,99.9L430.1,97.7L429.5,99.8L430.9,99.4L433.0,100.8L433.8,98.8L434.8,100.9L434.5,102.4L436.5,100.9L436.8,103.1L437.7,102.4L437.4,104.5L440.1,101.8L440.4,103.1L439.2,104.0L439.9,108.3L441.4,107.3L441.8,104.8L443.5,103.9L445.6,104.5L446.9,103.2L446.3,105.2L447.9,107.7L452.2,109.9L452.5,112.8L449.6,116.4L450.5,116.5L452.6,114.6L454.1,115.4L454.7,117.1L454.2,118.6L452.4,118.0L452.4,119.6L450.5,123.1L449.6,128.0L450.6,128.6L448.1,130.8L448.1,131.7L450.2,130.5L453.5,127.0L454.6,120.8L459.2,118.5L459.5,120.9L458.1,122.7L455.0,124.5L457.3,124.1L457.1,125.8L458.4,124.1L459.3,124.4L460.0,122.2L461.4,120.8L463.9,120.6L463.1,119.4L464.2,118.8L465.1,116.5L466.3,116.4L466.0,118.0L468.7,121.0L469.3,119.5L468.7,117.7L470.9,117.8L480.1,121.2L484.0,124.3L487.0,124.4L487.4,125.5L489.7,125.0L491.9,125.6L490.8,124.1L489.4,124.6L487.2,124.0L487.4,123.2L489.3,124.5L489.6,123.2L493.4,124.5Z","lx":441.3,"ly":157.8},{"uf":"PA","nome":"Par\u00e1","reg":"norte","d":"M395.2,97.0L393.8,95.9L395.7,93.8L396.2,95.4L395.2,97.0ZM355.0,90.1L354.8,92.2L350.9,93.9L351.4,91.6L355.0,90.1ZM348.9,89.8L350.0,91.0L347.9,97.1L347.3,96.7L345.7,99.4L340.3,103.5L338.6,104.0L337.7,103.0L338.9,100.3L342.1,97.4L342.0,94.2L344.6,90.5L347.6,89.1L348.9,89.8ZM346.6,88.3L348.3,84.6L349.8,83.3L350.1,85.3L349.3,86.5L346.6,88.3ZM354.0,85.9L351.8,84.8L353.2,81.4L356.0,80.5L358.1,82.5L354.0,85.9ZM375.8,80.1L377.9,81.3L376.5,83.1L372.2,83.4L370.4,82.8L373.5,80.3L375.8,80.1ZM361.1,81.2L359.2,81.2L358.0,80.1L358.4,78.4L360.9,79.2L361.1,81.2ZM364.5,77.1L366.1,77.8L367.2,76.6L369.0,76.7L373.2,75.3L374.6,75.3L375.1,76.6L372.6,78.0L370.5,81.0L367.7,82.0L366.7,81.0L362.5,80.5L362.2,77.9L364.5,77.1ZM362.5,73.1L362.8,76.0L361.2,78.6L359.8,78.0L361.5,74.8L361.2,72.8L362.2,71.7L362.5,73.1ZM367.4,72.2L367.1,73.4L363.5,75.7L363.2,73.1L364.1,72.1L366.8,71.3L367.4,72.2ZM375.1,107.1L372.9,108.4L370.5,109.1L367.7,108.0L367.4,106.7L365.4,108.6L364.3,107.9L364.1,106.1L363.2,108.9L361.5,109.3L358.5,108.3L358.7,107.1L355.4,103.1L355.6,97.9L359.2,99.4L355.6,96.8L355.8,91.4L357.7,85.3L358.8,84.2L361.5,83.7L362.2,82.8L366.4,83.2L373.2,84.9L376.1,84.6L379.9,83.4L385.1,83.7L384.9,84.5L389.0,84.7L392.1,85.2L392.9,86.9L391.6,88.7L390.4,94.9L388.4,96.7L388.8,97.9L385.7,99.9L386.4,100.9L385.8,103.0L384.1,101.1L383.5,101.7L385.7,103.4L382.2,104.8L380.9,102.7L380.3,106.0L378.7,106.1L377.1,104.7L377.5,106.5L375.4,105.6L375.1,107.1ZM428.2,99.9L426.4,104.2L426.4,107.2L424.6,108.0L426.1,109.2L426.1,111.0L424.8,114.9L423.1,115.8L422.8,120.0L419.1,123.5L420.5,125.3L419.4,125.9L419.1,129.0L416.6,132.6L414.7,133.7L413.5,136.8L412.9,140.5L409.4,144.2L407.9,147.2L406.8,148.1L404.8,151.4L403.7,152.2L401.4,152.1L387.0,163.4L387.2,163.6L389.8,164.5L392.6,164.4L396.1,168.2L393.8,169.4L394.8,172.3L393.1,173.3L393.8,175.1L391.6,176.2L392.1,179.2L390.4,179.0L388.8,180.3L387.6,183.8L382.6,185.5L379.6,187.4L379.3,188.3L379.8,192.3L376.9,196.5L376.6,198.0L377.8,199.8L380.0,201.2L379.5,205.2L377.7,210.1L376.6,210.9L373.7,216.7L370.8,218.3L366.2,224.4L364.6,230.2L363.3,232.4L347.2,231.4L289.5,227.8L268.6,226.5L265.3,225.1L263.9,225.4L262.9,223.5L259.7,222.9L258.8,220.1L255.8,218.7L253.0,216.2L251.5,215.7L249.9,210.7L250.5,207.6L248.4,204.8L246.6,199.4L244.0,195.1L242.8,194.0L241.5,190.5L238.8,188.1L237.7,184.2L240.3,181.1L263.6,130.1L269.3,117.8L269.1,116.1L267.6,114.4L265.5,115.3L263.7,114.6L263.8,112.7L259.7,110.9L258.5,109.0L254.7,107.7L249.7,105.6L247.1,103.4L241.9,100.2L238.4,97.3L237.6,94.5L234.7,93.0L232.8,90.7L233.0,87.8L231.2,86.6L230.9,77.8L229.4,61.0L230.5,62.5L232.5,62.7L233.9,61.5L236.4,61.7L236.5,59.1L238.5,58.3L239.3,56.7L242.1,57.8L244.0,57.9L244.6,55.7L247.6,55.0L251.2,55.0L253.2,52.0L254.6,51.0L256.1,51.3L258.2,50.2L259.7,51.8L262.8,52.5L265.4,51.5L269.6,51.6L274.9,53.1L276.4,52.3L276.6,49.9L273.5,45.4L275.1,44.4L275.4,42.5L279.5,44.5L281.3,43.9L284.5,44.0L286.0,42.6L291.0,42.2L292.5,43.7L294.1,43.5L295.1,46.5L293.9,50.4L294.7,54.0L300.4,54.2L303.5,55.8L304.9,58.1L306.0,57.8L307.8,59.7L311.3,59.4L312.9,60.3L313.2,62.2L314.8,61.9L314.3,63.5L315.1,66.7L317.5,69.2L319.8,70.2L319.6,75.3L320.9,77.4L321.3,80.4L322.8,84.2L324.2,83.9L327.3,87.3L327.2,89.8L328.8,91.1L329.0,94.6L330.8,94.5L331.4,97.6L336.1,99.8L338.4,98.9L338.2,101.5L335.9,102.7L334.0,101.8L329.6,104.0L326.4,104.9L326.0,105.7L330.4,105.2L332.6,104.5L333.1,107.3L335.1,106.0L338.3,105.3L342.0,102.7L348.2,99.9L349.9,98.2L351.9,97.1L352.3,95.6L355.1,95.6L355.0,97.4L353.0,98.5L355.1,100.1L355.2,103.2L357.2,106.0L357.7,107.9L355.0,110.8L357.0,110.5L357.6,108.9L360.9,110.9L361.2,112.9L363.4,110.3L365.3,110.6L366.1,109.6L368.1,109.3L369.7,110.1L370.0,112.6L370.7,110.4L373.1,110.7L374.7,108.7L374.9,109.8L378.0,107.6L378.9,108.4L377.5,110.3L376.3,114.8L374.7,118.3L374.8,119.9L372.6,122.2L375.0,121.6L376.5,119.2L376.6,117.6L378.1,115.1L379.6,111.2L381.3,108.4L383.7,105.8L384.9,105.8L383.7,108.7L386.1,106.2L388.8,102.5L390.4,105.6L392.1,106.5L391.2,104.5L393.6,103.9L390.9,103.5L391.2,100.9L393.4,101.5L394.0,99.5L391.5,99.2L392.2,97.8L395.6,97.1L396.5,95.1L396.3,93.2L398.1,91.4L399.3,93.2L399.2,91.0L401.4,91.5L402.7,89.5L404.9,91.6L405.1,90.1L406.5,93.0L408.2,93.1L406.9,90.4L413.0,91.6L412.9,94.1L414.7,92.2L415.7,93.3L416.9,92.2L418.7,94.8L420.3,94.6L420.2,96.0L421.8,94.8L422.1,97.0L424.5,97.0L426.9,95.4L426.1,98.9L428.1,97.8L428.2,99.9Z","lx":306.9,"ly":146.8},{"uf":"SC","nome":"Santa Catarina","reg":"sul","d":"M380.6,509.5L380.4,508.3L381.2,505.7L381.2,503.5L382.5,502.9L383.1,504.1L382.5,506.2L380.6,509.5ZM381.0,488.0L379.4,486.2L381.6,484.1L382.4,485.2L381.0,488.0ZM381.3,481.2L381.2,483.9L379.0,484.9L378.4,482.4L378.6,485.9L380.6,488.2L379.7,490.0L379.4,492.5L380.8,493.4L380.2,494.4L380.2,498.5L381.5,498.8L381.8,500.2L380.1,500.3L380.7,502.2L379.4,504.2L380.3,506.0L379.3,506.8L380.2,510.1L378.8,515.5L376.9,519.6L376.8,517.9L375.8,517.4L375.9,519.4L376.9,520.3L376.4,521.5L374.7,522.0L369.0,526.1L366.1,529.1L363.8,532.0L360.6,529.9L358.9,530.7L359.2,532.4L357.7,531.2L357.8,529.9L359.1,528.3L360.0,528.5L360.8,526.2L360.8,523.8L363.1,521.3L364.4,520.9L363.7,518.9L362.0,518.5L358.2,518.9L357.5,518.4L352.0,517.1L350.0,513.6L348.8,513.1L348.6,511.6L346.8,510.1L346.0,508.4L344.0,507.5L340.9,504.4L339.6,504.4L338.1,502.9L336.5,503.6L334.8,503.2L333.3,500.6L331.1,499.6L330.4,500.4L328.3,499.9L327.4,498.7L323.9,499.6L321.6,497.9L320.2,498.7L319.1,496.9L315.5,498.3L316.0,497.1L314.8,496.4L313.0,497.3L312.9,498.2L310.6,497.6L308.3,497.8L310.1,493.4L309.6,490.6L309.9,485.7L310.8,483.9L313.6,484.4L315.0,483.6L318.2,485.6L322.5,485.2L324.9,486.2L331.0,487.0L333.6,489.1L335.4,489.4L340.6,489.5L341.6,491.0L344.2,489.7L343.6,486.9L344.1,485.7L346.6,484.0L349.0,484.7L351.3,484.1L352.6,481.6L355.2,481.0L357.2,481.5L362.3,481.0L367.1,484.4L371.3,482.8L373.9,481.1L381.3,481.2Z","lx":362.9,"ly":497.9},{"uf":"BA","nome":"Bahia","reg":"nordeste","d":"M532.5,293.4L531.6,297.6L531.5,295.0L530.7,293.3L532.5,293.4ZM508.4,364.4L508.6,361.0L504.8,357.5L505.0,356.0L503.2,354.7L504.0,352.7L503.9,350.7L504.9,347.6L505.8,346.7L508.3,347.0L509.3,342.1L511.0,341.9L512.4,339.6L514.2,338.4L515.5,335.3L510.3,330.4L506.8,329.5L505.9,329.8L504.0,328.4L502.6,328.6L500.0,327.4L496.7,328.9L494.2,327.8L494.0,324.3L487.7,317.9L485.6,318.7L483.4,318.7L476.3,314.4L475.6,314.5L470.9,310.2L466.9,309.4L462.9,311.6L459.7,310.6L457.3,309.3L457.2,307.8L458.7,304.5L458.0,304.0L450.9,302.6L447.2,304.0L442.9,306.5L442.2,307.7L438.9,309.5L437.0,309.7L435.5,311.4L433.4,312.7L432.0,312.6L429.5,315.4L426.4,315.3L424.1,317.1L425.7,313.1L425.0,311.2L426.8,308.6L426.1,306.1L426.9,303.3L423.9,300.6L422.0,295.7L421.9,292.4L423.4,288.6L424.8,287.7L425.0,286.2L423.6,285.6L424.1,282.7L425.1,281.0L422.9,279.1L424.1,276.2L424.2,274.6L421.9,273.3L421.7,268.8L423.6,266.8L425.7,265.8L424.5,264.3L423.2,264.4L423.3,262.6L425.4,261.7L425.8,260.7L424.1,259.7L420.6,259.0L418.5,256.1L420.2,254.0L421.7,250.8L423.8,249.5L422.8,247.6L426.1,245.0L429.6,243.3L431.2,241.2L433.5,241.2L435.5,243.7L435.9,245.8L437.8,248.3L441.8,250.2L445.8,249.7L446.3,248.6L449.6,246.3L451.4,245.8L454.5,246.5L455.9,245.9L457.9,243.8L459.2,243.5L462.5,237.5L463.0,233.9L462.4,233.0L461.1,228.0L462.9,228.3L464.4,226.6L466.7,226.2L467.7,227.9L470.7,228.1L471.6,227.4L474.6,228.9L475.7,230.3L477.2,229.9L479.3,230.7L479.9,229.4L481.3,229.7L484.1,226.8L486.5,226.7L488.2,225.3L491.1,226.2L492.9,224.4L493.0,222.0L496.6,221.4L498.7,217.9L501.9,218.0L505.9,220.5L505.8,223.3L506.3,225.1L508.5,226.2L508.7,228.2L507.6,229.9L509.6,230.5L513.0,228.6L514.2,228.6L515.2,224.7L517.6,224.8L521.0,222.9L521.1,220.6L524.2,220.0L524.4,218.0L528.8,216.2L530.5,216.7L531.5,218.6L534.4,219.6L535.2,220.5L537.0,220.3L539.2,221.5L539.9,223.5L541.9,221.3L542.1,223.3L543.6,224.7L545.0,224.1L546.1,229.5L546.6,230.9L549.3,232.0L549.6,232.9L548.7,234.1L549.8,238.4L552.4,241.8L552.2,245.4L551.3,247.2L551.9,250.5L549.0,252.4L545.7,251.6L544.9,254.4L546.7,256.6L547.2,258.9L548.5,260.1L548.0,262.0L550.2,263.4L551.0,264.8L553.0,265.4L555.7,264.9L557.5,264.3L556.4,265.8L552.6,273.2L546.1,282.3L541.8,286.7L538.8,287.9L539.4,286.2L539.2,283.1L537.4,282.7L536.0,281.4L535.0,284.2L533.8,284.8L536.4,285.4L537.7,287.3L531.9,291.3L531.9,293.0L530.6,292.9L531.4,297.8L531.0,300.3L529.1,298.5L530.5,301.0L529.7,301.8L530.7,302.9L531.7,301.4L531.7,303.0L530.5,306.3L530.5,307.9L528.9,313.5L529.4,315.8L529.3,322.4L529.9,330.1L530.6,332.2L527.1,341.3L525.5,347.0L525.6,348.6L524.0,352.6L523.9,359.6L524.4,360.8L522.2,363.6L518.7,365.6L516.7,368.4L515.8,370.3L508.7,364.9L508.4,364.4Z","lx":496.3,"ly":270.2},{"uf":"AP","nome":"Amap\u00e1","reg":"norte","d":"M366.7,66.9L366.2,66.5L369.0,64.8L366.2,69.6L363.5,69.7L364.3,68.0L366.7,66.9ZM360.7,48.7L360.6,47.6L363.0,51.3L360.7,52.3L359.7,50.5L360.7,48.7ZM338.4,98.9L336.1,99.8L331.4,97.6L330.8,94.5L329.0,94.6L328.8,91.1L327.2,89.8L327.3,87.3L324.2,83.9L322.8,84.2L321.3,80.4L320.9,77.4L319.6,75.3L319.8,70.2L317.5,69.2L315.1,66.7L314.3,63.5L314.8,61.9L313.2,62.2L312.9,60.3L311.3,59.4L307.8,59.7L306.0,57.8L304.9,58.1L303.5,55.8L300.4,54.2L294.7,54.0L293.9,50.4L295.1,46.5L294.1,43.5L295.2,43.7L295.2,45.6L297.4,45.7L298.7,47.3L304.0,48.8L308.7,45.8L313.3,46.8L316.2,45.2L317.9,46.7L322.1,47.8L323.4,46.6L326.0,45.0L328.4,41.8L328.1,40.8L331.5,34.3L331.4,33.2L333.4,31.2L336.7,25.7L337.1,24.4L339.4,21.9L340.2,20.1L342.5,18.8L343.1,16.5L344.6,18.2L343.6,14.4L344.3,13.1L346.3,14.3L348.8,17.3L349.5,19.4L349.6,25.2L350.5,21.2L351.0,21.6L350.9,29.4L353.2,37.9L353.8,38.3L356.3,44.7L357.3,47.9L360.6,53.3L365.0,53.3L367.7,54.3L369.2,55.6L369.7,60.3L369.1,61.7L365.7,62.9L369.0,62.5L369.5,63.3L365.2,67.1L363.0,68.6L360.6,71.3L358.4,75.5L355.6,78.6L353.5,78.8L351.3,81.5L347.5,82.6L348.5,83.2L347.4,84.5L345.5,88.4L341.6,92.7L341.2,97.2L338.4,98.9Z","lx":340.1,"ly":63.4},{"uf":"MS","nome":"Mato Grosso do Sul","reg":"centro-oeste","d":"M305.0,448.4L302.7,450.0L300.1,447.9L297.1,446.3L292.8,448.8L289.2,449.6L286.4,449.0L285.7,445.3L284.5,443.3L284.6,439.8L284.4,437.5L282.9,434.0L282.5,431.2L282.9,428.3L281.3,426.9L281.0,424.7L279.3,423.5L274.7,423.0L273.0,422.0L271.5,419.9L270.2,420.2L268.0,422.9L267.3,422.2L265.5,423.4L260.2,421.9L257.8,422.3L254.4,421.9L253.8,420.8L251.2,421.4L249.1,419.8L249.9,417.8L249.5,417.0L250.2,414.5L249.6,413.5L249.6,410.8L250.7,408.9L250.6,404.4L251.1,403.1L249.7,402.4L250.5,401.5L249.2,400.7L250.4,399.9L248.6,399.2L248.4,395.2L247.0,394.3L245.9,391.1L250.1,388.2L246.2,384.4L250.8,374.0L251.9,373.8L250.9,371.7L254.0,360.5L251.3,355.4L251.3,353.6L253.2,354.9L255.9,355.5L260.1,354.2L262.3,352.3L262.5,351.0L264.1,349.5L265.5,347.0L271.8,346.4L273.0,345.3L275.1,344.8L279.8,347.3L282.4,347.9L283.5,349.6L288.7,352.4L292.9,351.8L295.9,349.8L298.3,349.7L299.9,350.7L300.3,352.1L304.0,351.4L306.8,348.8L308.7,346.5L310.8,345.7L309.8,351.6L308.2,352.4L306.2,355.6L310.1,357.3L316.3,357.1L320.0,357.5L319.9,361.7L320.9,363.2L322.1,362.5L323.9,363.2L322.3,367.0L322.6,367.6L326.3,368.3L328.1,368.1L330.3,369.8L331.4,369.7L334.5,371.8L340.5,374.7L343.9,375.4L345.3,376.7L347.8,377.2L350.3,380.1L349.3,384.4L349.7,389.8L347.6,392.7L344.8,393.7L340.5,398.8L340.3,401.5L336.7,406.0L336.8,408.7L333.3,411.8L334.2,413.6L332.6,414.7L330.2,417.7L329.4,420.2L327.3,422.0L325.0,423.1L322.6,425.0L320.8,425.6L318.0,429.3L313.5,431.3L311.8,432.7L311.2,435.5L310.0,438.4L306.9,440.4L305.1,446.4L305.0,448.4Z","lx":293.9,"ly":394.3},{"uf":"MG","nome":"Minas Gerais","reg":"sudeste","d":"M349.7,389.8L349.3,384.4L350.3,380.1L351.7,380.4L352.1,377.4L354.9,374.7L356.5,374.7L357.2,371.9L359.8,368.7L364.7,367.2L367.6,367.4L372.1,365.6L373.9,367.6L377.4,364.4L380.1,363.2L390.8,364.0L392.1,364.8L395.4,365.5L399.1,363.7L400.6,362.0L404.7,359.9L403.8,357.1L405.1,353.9L404.8,352.0L401.3,350.4L401.9,348.5L407.2,343.2L405.6,338.3L403.0,335.6L404.6,332.7L405.4,328.7L405.4,328.7L405.4,328.7L405.5,328.7L405.4,328.7L406.5,328.6L408.1,326.9L408.8,327.2L412.5,325.9L412.1,322.0L411.2,319.5L412.4,317.9L411.4,316.4L412.0,313.6L414.4,313.2L415.8,314.0L417.1,313.6L416.8,309.8L417.8,308.6L419.7,309.6L420.9,311.7L424.2,312.1L425.0,311.2L425.7,313.1L424.1,317.1L426.4,315.3L429.5,315.4L432.0,312.6L433.4,312.7L435.5,311.4L437.0,309.7L438.9,309.5L442.2,307.7L442.9,306.5L447.2,304.0L450.9,302.6L458.0,304.0L458.7,304.5L457.2,307.8L457.3,309.3L459.7,310.6L462.9,311.6L466.9,309.4L470.9,310.2L475.6,314.5L476.3,314.4L483.4,318.7L485.6,318.7L487.7,317.9L494.0,324.3L494.2,327.8L496.7,328.9L500.0,327.4L502.6,328.6L504.0,328.4L505.9,329.8L506.8,329.5L510.3,330.4L515.5,335.3L514.2,338.4L512.4,339.6L511.0,341.9L509.3,342.1L508.3,347.0L505.8,346.7L504.9,347.6L503.9,350.7L504.0,352.7L503.2,354.7L505.0,356.0L504.8,357.5L508.6,361.0L508.4,364.4L505.3,362.8L501.7,363.5L498.1,363.5L499.9,365.5L497.9,365.5L495.7,366.6L494.4,368.4L496.3,370.9L495.6,373.8L497.1,374.8L496.9,376.5L492.4,377.0L494.3,377.6L494.9,380.0L496.3,381.8L496.4,384.2L495.7,386.9L492.6,389.6L491.9,392.8L490.1,394.1L489.0,397.7L488.4,398.0L483.9,397.6L481.7,400.0L482.5,400.9L482.0,404.4L481.1,406.3L479.5,408.3L477.6,408.3L475.3,414.7L474.1,415.7L472.8,419.2L474.0,420.5L462.9,424.5L458.5,423.9L456.7,424.6L451.7,424.4L447.6,425.8L445.8,426.9L442.6,426.7L439.3,428.3L436.9,428.7L433.6,429.5L428.4,432.0L426.7,431.9L425.1,430.9L422.8,432.5L423.5,434.0L421.9,434.9L421.2,434.3L417.8,435.2L414.7,434.3L414.7,432.8L413.3,431.7L414.6,429.5L411.1,427.4L410.3,426.0L411.9,423.2L410.5,422.0L411.7,420.8L411.2,418.2L413.9,413.8L413.7,412.8L409.4,411.0L406.7,411.6L406.0,408.4L405.1,407.3L404.8,405.0L403.8,403.9L404.0,402.3L405.6,399.6L405.1,398.0L403.1,396.3L404.1,393.0L401.2,390.2L400.8,389.0L398.1,390.0L397.3,389.1L394.9,389.5L394.1,391.2L393.2,389.8L392.0,391.7L389.9,391.0L380.8,391.5L380.1,393.0L380.4,395.2L378.9,395.1L378.9,392.5L377.9,391.1L376.3,393.4L375.3,393.3L374.3,391.4L374.7,388.3L373.1,388.5L370.7,387.6L365.9,387.5L359.2,386.4L358.0,385.2L356.1,385.4L354.6,387.0L351.5,388.2L349.7,389.8Z","lx":449.0,"ly":362.2},{"uf":"GO","nome":"Goi\u00e1s","reg":"centro-oeste","d":"M404.6,332.7L403.0,335.6L405.6,338.3L407.2,343.2L401.9,348.5L401.3,350.4L404.8,352.0L405.1,353.9L403.8,357.1L404.7,359.9L400.6,362.0L399.1,363.7L395.4,365.5L392.1,364.8L390.8,364.0L380.1,363.2L377.4,364.4L373.9,367.6L372.1,365.6L367.6,367.4L364.7,367.2L359.8,368.7L357.2,371.9L356.5,374.7L354.9,374.7L352.1,377.4L351.7,380.4L350.3,380.1L347.8,377.2L345.3,376.7L343.9,375.4L340.5,374.7L334.5,371.8L331.4,369.7L330.3,369.8L328.1,368.1L326.3,368.3L322.6,367.6L322.3,367.0L323.9,363.2L322.1,362.5L320.9,363.2L319.9,361.7L320.0,357.5L317.3,350.5L317.9,346.2L320.2,342.7L320.6,339.8L323.7,337.9L326.3,334.7L326.6,333.1L325.8,331.0L327.8,330.0L327.8,329.1L330.9,327.2L332.1,325.3L337.5,323.6L340.6,317.1L341.0,314.5L343.1,312.3L346.1,310.7L348.2,311.1L349.3,309.7L351.4,304.0L351.0,302.2L352.1,298.0L353.1,297.7L353.1,291.7L354.1,291.2L354.7,289.1L356.2,287.3L357.6,284.4L357.4,282.0L358.8,280.1L359.0,278.4L359.6,276.2L361.1,273.8L364.1,271.7L364.3,272.9L362.2,277.6L362.7,279.9L370.9,283.7L375.4,284.9L376.8,281.1L379.3,277.1L381.1,275.9L381.4,277.3L383.9,279.3L384.7,282.7L384.6,286.7L385.9,286.5L386.4,284.1L390.7,284.3L394.2,282.6L393.7,284.2L401.0,287.1L400.4,284.0L401.7,283.4L403.1,286.3L409.9,283.4L413.9,283.1L416.7,280.9L422.9,279.1L425.1,281.0L424.1,282.7L423.6,285.6L425.0,286.2L424.8,287.7L423.4,288.6L421.9,292.4L422.0,295.7L423.9,300.6L426.9,303.3L426.1,306.1L426.8,308.6L425.0,311.2L424.2,312.1L420.9,311.7L419.7,309.6L417.8,308.6L416.8,309.8L417.1,313.6L415.8,314.0L414.4,313.2L412.0,313.6L411.4,316.4L412.4,317.9L411.2,319.5L412.1,322.0L412.5,325.9L408.8,327.2L408.1,326.9L406.5,328.6L405.4,328.7L404.6,327.8L405.6,321.7L403.9,320.3L392.7,319.9L391.7,322.9L392.2,323.6L391.0,325.2L392.4,328.3L405.4,328.7L405.4,328.7L405.4,328.7L404.6,332.7Z","lx":373.2,"ly":330.4},{"uf":"RS","nome":"Rio Grande do Sul","reg":"sul","d":"M363.8,532.0L362.4,533.8L359.1,539.4L355.1,549.3L349.5,558.1L343.6,564.6L338.1,569.0L334.1,571.4L331.1,574.6L332.1,571.6L331.2,570.1L331.7,569.4L333.3,570.4L336.2,569.3L340.1,565.1L342.4,564.3L343.3,562.7L343.7,558.2L345.7,558.4L346.4,556.1L349.4,554.2L350.2,551.9L350.2,547.5L351.3,549.5L352.3,547.0L351.4,545.0L350.5,546.5L347.4,546.7L347.2,548.6L345.6,547.7L345.9,546.2L343.0,544.5L342.4,541.9L341.8,545.3L343.6,547.4L342.1,551.4L340.9,551.9L341.1,555.3L339.8,555.4L339.4,557.3L339.9,558.4L337.5,559.1L337.3,561.0L333.5,561.7L332.5,563.6L332.3,566.9L331.9,565.7L331.1,567.6L329.7,568.1L329.3,570.5L330.4,570.9L329.2,571.8L329.5,573.6L331.2,572.8L331.1,574.9L328.9,576.6L327.3,579.9L325.9,584.6L323.9,589.2L321.3,592.5L315.5,597.9L314.1,598.9L312.0,597.5L313.3,595.5L313.1,591.1L314.9,588.4L315.7,589.0L317.0,586.9L317.5,584.5L319.1,584.8L320.6,586.3L322.5,585.4L324.4,581.1L324.4,579.8L322.9,577.3L323.7,574.9L322.7,575.2L321.4,577.5L322.1,578.1L319.3,579.8L319.1,581.1L316.9,582.3L313.7,580.8L310.7,577.3L310.4,575.6L309.1,572.8L305.2,570.2L304.3,570.7L300.0,567.1L299.7,565.7L298.3,564.0L295.3,563.4L292.5,561.0L291.8,561.8L289.4,560.4L288.2,557.7L285.0,554.5L281.4,558.1L279.5,558.2L279.4,553.9L276.4,550.3L274.5,549.2L271.0,545.6L268.3,543.4L265.0,543.5L263.3,546.4L259.0,546.3L257.9,544.9L259.3,544.3L261.6,541.7L262.0,539.2L264.6,538.1L270.1,531.3L270.8,528.9L273.5,527.1L273.8,525.6L275.0,524.5L275.2,522.9L276.6,522.4L278.7,519.9L278.8,518.5L280.3,517.9L281.1,516.2L282.9,517.1L283.5,515.8L282.0,514.4L284.2,512.6L286.5,512.0L288.2,509.4L290.0,508.5L292.1,508.3L291.3,507.3L293.6,506.7L293.8,504.9L298.8,502.8L301.3,501.3L302.2,501.9L303.6,499.0L304.9,499.7L306.6,497.6L308.3,497.8L310.6,497.6L312.9,498.2L313.0,497.3L314.8,496.4L316.0,497.1L315.5,498.3L319.1,496.9L320.2,498.7L321.6,497.9L323.9,499.6L327.4,498.7L328.3,499.9L330.4,500.4L331.1,499.6L333.3,500.6L334.8,503.2L336.5,503.6L338.1,502.9L339.6,504.4L340.9,504.4L344.0,507.5L346.0,508.4L346.8,510.1L348.6,511.6L348.8,513.1L350.0,513.6L352.0,517.1L357.5,518.4L358.2,518.9L362.0,518.5L363.7,518.9L364.4,520.9L363.1,521.3L360.8,523.8L360.8,526.2L360.0,528.5L359.1,528.3L357.8,529.9L357.7,531.2L359.2,532.4L358.9,530.7L360.6,529.9L363.8,532.0Z","lx":313.3,"ly":533.3},{"uf":"TO","nome":"Tocantins","reg":"norte","d":"M428.4,240.9L430.2,241.2L431.2,241.2L429.6,243.3L426.1,245.0L422.8,247.6L423.8,249.5L421.7,250.8L420.2,254.0L418.5,256.1L420.6,259.0L424.1,259.7L425.8,260.7L425.4,261.7L423.3,262.6L423.2,264.4L424.5,264.3L425.7,265.8L423.6,266.8L421.7,268.8L421.9,273.3L424.2,274.6L424.1,276.2L422.9,279.1L416.7,280.9L413.9,283.1L409.9,283.4L403.1,286.3L401.7,283.4L400.4,284.0L401.0,287.1L393.7,284.2L394.2,282.6L390.7,284.3L386.4,284.1L385.9,286.5L384.6,286.7L384.7,282.7L383.9,279.3L381.4,277.3L381.1,275.9L379.3,277.1L376.8,281.1L375.4,284.9L370.9,283.7L362.7,279.9L362.2,277.6L364.3,272.9L364.1,271.7L361.1,273.8L359.6,276.2L359.0,278.4L357.3,277.9L356.3,275.1L357.2,272.1L356.3,268.4L356.2,265.4L356.7,263.6L355.9,261.0L356.7,259.4L355.4,257.8L357.4,250.6L357.1,249.1L357.7,244.8L358.9,243.3L360.3,240.0L361.1,236.4L362.3,235.1L363.3,232.4L364.6,230.2L366.2,224.4L370.8,218.3L373.7,216.7L376.6,210.9L377.7,210.1L379.5,205.2L380.0,201.2L377.8,199.8L376.6,198.0L376.9,196.5L379.8,192.3L379.3,188.3L379.6,187.4L382.6,185.5L387.6,183.8L388.8,180.3L390.4,179.0L392.1,179.2L391.6,176.2L393.8,175.1L393.1,173.3L394.8,172.3L393.8,169.4L396.1,168.2L392.6,164.4L389.8,164.5L387.2,163.6L388.9,163.2L390.6,161.0L393.1,160.8L395.9,162.2L398.3,161.9L400.4,162.6L400.8,164.2L402.5,164.4L405.3,165.7L406.4,167.4L406.2,169.8L407.2,171.8L406.9,175.4L407.7,177.4L407.2,181.2L405.9,184.5L405.5,189.3L403.5,191.6L401.9,192.1L403.4,193.9L405.4,193.5L405.6,196.1L407.8,199.4L410.8,202.5L412.8,205.4L415.0,204.1L419.6,203.4L420.8,204.3L421.2,205.9L419.9,209.8L420.6,211.0L416.1,211.5L414.7,213.7L414.2,217.6L411.5,220.7L413.6,221.3L415.1,222.8L415.3,225.0L416.4,226.6L419.3,228.0L419.7,228.9L417.6,231.8L420.0,233.6L420.5,235.9L422.3,238.5L426.2,239.1L428.4,240.9Z","lx":391.0,"ly":234.0},{"uf":"PI","nome":"Piau\u00ed","reg":"nordeste","d":"M431.2,241.2L430.2,241.2L428.4,240.9L428.3,238.7L429.8,236.0L430.3,228.8L430.9,227.7L429.5,225.6L429.4,223.3L428.3,219.4L429.2,217.2L430.8,215.9L432.2,211.8L434.8,207.5L435.4,203.1L436.5,200.1L439.2,198.4L443.4,197.4L446.6,195.5L448.2,196.1L452.3,192.3L454.5,191.7L455.3,190.1L458.7,186.5L464.3,185.6L467.6,187.9L471.6,186.6L475.0,186.5L476.0,185.3L476.9,182.4L477.1,178.8L475.4,177.8L473.7,175.7L473.4,168.9L474.2,168.6L477.7,164.2L478.1,161.8L477.5,158.3L476.0,155.8L476.0,154.0L477.4,151.5L476.1,149.8L475.5,147.4L479.5,142.5L480.6,140.4L480.4,139.0L483.2,135.2L483.9,135.6L487.6,134.9L490.9,131.8L493.4,128.7L493.4,124.5L494.0,124.2L496.0,126.4L501.1,127.1L502.6,128.5L502.5,129.5L499.8,133.3L499.4,135.2L500.8,139.4L501.8,141.0L502.6,144.7L504.3,146.8L505.0,149.2L502.4,152.5L503.1,158.4L504.9,162.4L504.7,164.6L506.5,166.4L507.3,175.7L508.5,179.6L508.9,183.4L509.8,186.0L513.3,187.3L514.2,188.5L511.5,194.5L512.1,197.6L509.7,198.1L510.7,201.5L510.0,203.3L511.7,204.6L511.6,207.6L510.9,209.1L508.4,210.9L505.7,213.8L504.2,213.6L501.2,216.8L498.7,217.9L496.6,221.4L493.0,222.0L492.9,224.4L491.1,226.2L488.2,225.3L486.5,226.7L484.1,226.8L481.3,229.7L479.9,229.4L479.3,230.7L477.2,229.9L475.7,230.3L474.6,228.9L471.6,227.4L470.7,228.1L467.7,227.9L466.7,226.2L464.4,226.6L462.9,228.3L461.1,228.0L462.4,233.0L463.0,233.9L462.5,237.5L459.2,243.5L457.9,243.8L455.9,245.9L454.5,246.5L451.4,245.8L449.6,246.3L446.3,248.6L445.8,249.7L441.8,250.2L437.8,248.3L435.9,245.8L435.5,243.7L433.5,241.2L431.2,241.2Z","lx":472.1,"ly":207.4},{"uf":"AL","nome":"Alagoas","reg":"nordeste","d":"M593.4,225.1L590.7,229.5L588.2,231.9L584.4,236.9L582.9,235.4L582.7,237.8L578.9,242.9L575.4,245.7L572.9,249.6L572.1,248.1L570.6,248.0L569.9,245.5L568.9,245.8L566.8,244.7L565.2,242.8L565.2,241.4L561.1,239.3L560.0,237.8L555.9,236.4L549.6,232.9L549.3,232.0L546.6,230.9L546.1,229.5L548.4,227.3L550.2,226.8L552.7,224.2L553.8,222.4L554.7,224.4L557.3,223.9L562.2,228.9L565.8,230.9L567.5,229.5L571.3,230.2L574.9,228.8L578.4,226.0L580.2,224.2L583.5,224.0L584.6,224.8L588.5,223.6L589.7,224.5L593.4,225.1Z","lx":575.4,"ly":239.0},{"uf":"PB","nome":"Para\u00edba","reg":"nordeste","d":"M597.9,186.4L597.7,188.2L598.6,192.6L599.2,193.1L598.2,196.5L599.5,194.3L600.0,197.0L599.4,203.2L598.3,203.2L595.7,200.9L592.6,200.4L591.0,201.5L589.1,201.4L588.1,204.6L583.4,206.0L583.2,206.8L574.7,206.8L574.3,208.1L572.4,208.3L571.0,209.6L571.4,210.7L569.0,212.8L566.2,213.7L563.7,211.7L563.5,208.8L560.6,209.0L563.4,205.3L563.1,202.2L565.9,201.3L565.9,199.6L562.3,197.4L559.5,198.5L557.7,200.5L555.3,201.6L551.0,204.9L548.4,204.8L546.7,206.0L545.3,203.6L542.7,204.6L540.1,202.1L542.8,197.0L540.7,194.8L540.0,190.6L541.8,188.5L541.3,187.5L543.4,182.5L547.0,184.6L549.3,185.0L550.5,183.8L553.8,182.3L555.2,179.7L562.9,177.5L564.2,179.0L560.7,183.3L560.1,185.3L558.9,185.8L558.7,187.8L561.4,188.2L563.1,190.3L566.8,188.5L569.8,189.6L569.9,192.2L570.8,193.0L573.0,192.3L574.2,190.0L573.7,187.6L575.1,187.5L574.1,185.1L574.5,183.5L576.2,182.4L577.6,182.4L578.2,184.2L583.1,185.2L587.1,184.7L590.2,185.5L592.6,186.6L596.6,186.9L597.9,186.4Z","lx":583.8,"ly":194.1},{"uf":"CE","nome":"Cear\u00e1","reg":"nordeste","d":"M543.4,182.5L541.3,187.5L541.8,188.5L540.0,190.6L540.7,194.8L542.8,197.0L540.1,202.1L538.2,202.8L535.8,205.6L534.2,205.7L533.7,204.0L531.6,202.8L530.2,200.6L527.3,199.4L525.6,197.8L522.6,197.3L519.3,198.1L512.1,197.6L511.5,194.5L514.2,188.5L513.3,187.3L509.8,186.0L508.9,183.4L508.5,179.6L507.3,175.7L506.5,166.4L504.7,164.6L504.9,162.4L503.1,158.4L502.4,152.5L505.0,149.2L504.3,146.8L502.6,144.7L501.8,141.0L500.8,139.4L499.4,135.2L499.8,133.3L502.5,129.5L502.6,128.5L502.2,126.4L504.3,126.5L512.9,125.8L514.2,125.1L522.1,126.2L526.3,129.2L527.7,129.2L529.7,130.9L531.6,131.6L535.9,134.7L537.3,135.0L538.4,136.8L540.1,137.5L542.3,139.6L545.1,140.0L546.6,142.7L548.5,144.2L550.7,147.4L554.5,150.9L555.8,151.3L556.6,153.2L558.2,154.7L562.5,156.2L563.8,158.4L559.1,159.9L556.3,161.9L553.1,168.2L551.0,170.6L549.7,174.7L547.0,177.8L545.2,177.5L542.5,180.7L542.1,182.8L543.4,182.5Z","lx":526.5,"ly":159.7},{"uf":"SE","nome":"Sergipe","reg":"nordeste","d":"M572.9,249.6L570.3,250.3L565.2,253.5L562.9,256.3L561.0,260.0L559.2,261.3L558.3,263.3L556.6,263.2L555.7,264.9L553.0,265.4L551.0,264.8L550.2,263.4L548.0,262.0L548.5,260.1L547.2,258.9L546.7,256.6L544.9,254.4L545.7,251.6L549.0,252.4L551.9,250.5L551.3,247.2L552.2,245.4L552.4,241.8L549.8,238.4L548.7,234.1L549.6,232.9L555.9,236.4L560.0,237.8L561.1,239.3L565.2,241.4L565.2,242.8L566.8,244.7L568.9,245.8L569.9,245.5L570.6,248.0L572.1,248.1L572.9,249.6Z","lx":561.7,"ly":256.6},{"uf":"RR","nome":"Roraima","reg":"norte","d":"M161.4,46.5L161.4,43.6L154.6,43.4L151.2,42.7L152.0,39.1L150.4,35.3L148.6,32.6L148.3,28.0L149.0,25.2L147.2,23.2L144.0,21.1L142.0,18.9L139.7,14.9L140.8,14.3L143.1,17.0L146.6,16.5L150.3,17.6L151.2,20.4L152.2,20.8L154.1,19.7L158.0,20.0L159.7,21.3L161.0,19.6L163.2,20.3L167.6,25.4L168.6,25.9L170.7,25.4L171.4,24.4L170.8,20.7L171.2,18.9L174.4,18.6L174.7,17.3L177.1,16.5L180.0,17.8L182.4,16.8L184.0,17.0L187.4,15.4L189.7,15.5L191.4,12.9L193.9,12.5L193.9,11.3L196.1,11.8L198.2,11.4L200.0,8.6L202.1,7.8L204.4,5.6L204.7,4.1L203.6,0.8L206.9,1.4L210.6,0.0L214.2,2.8L213.3,8.4L211.5,11.6L214.7,11.8L218.6,13.7L218.0,16.9L221.0,20.7L218.7,24.2L216.2,25.6L216.4,29.4L214.3,34.0L213.6,39.7L215.1,43.3L215.1,44.8L217.6,46.3L217.4,52.7L219.0,52.9L218.5,54.0L220.1,54.6L225.2,60.0L229.4,61.0L230.9,77.8L217.1,77.6L213.1,77.8L211.6,79.2L208.8,84.8L207.5,89.2L208.6,90.7L208.3,92.1L206.3,92.6L205.6,94.0L202.2,94.3L201.0,91.8L199.2,89.8L196.4,88.8L191.0,91.1L189.9,92.5L189.2,95.8L189.5,97.0L188.6,100.9L188.8,103.1L186.4,102.2L184.6,102.4L182.3,98.9L179.5,97.4L176.2,94.0L174.9,93.2L175.3,92.0L176.8,92.3L177.8,91.1L177.0,88.4L177.0,86.5L175.3,84.7L173.8,81.0L174.6,79.7L173.9,78.5L174.5,74.5L175.2,72.8L174.4,69.8L175.8,68.7L173.1,59.3L170.6,56.4L171.7,54.2L171.8,51.0L169.7,49.9L167.3,49.8L165.1,47.4L162.6,47.6L161.4,46.5Z","lx":193.5,"ly":52.6},{"uf":"PE","nome":"Pernambuco","reg":"nordeste","d":"M593.4,225.1L589.7,224.5L588.5,223.6L584.6,224.8L583.5,224.0L580.2,224.2L578.4,226.0L574.9,228.8L571.3,230.2L567.5,229.5L565.8,230.9L562.2,228.9L557.3,223.9L554.7,224.4L553.8,222.4L552.7,224.2L550.2,226.8L548.4,227.3L546.1,229.5L545.0,224.1L543.6,224.7L542.1,223.3L541.9,221.3L539.9,223.5L539.2,221.5L537.0,220.3L535.2,220.5L534.4,219.6L531.5,218.6L530.5,216.7L528.8,216.2L524.4,218.0L524.2,220.0L521.1,220.6L521.0,222.9L517.6,224.8L515.2,224.7L514.2,228.6L513.0,228.6L509.6,230.5L507.6,229.9L508.7,228.2L508.5,226.2L506.3,225.1L505.8,223.3L505.9,220.5L501.9,218.0L498.7,217.9L501.2,216.8L504.2,213.6L505.7,213.8L508.4,210.9L510.9,209.1L511.6,207.6L511.7,204.6L510.0,203.3L510.7,201.5L509.7,198.1L512.1,197.6L519.3,198.1L522.6,197.3L525.6,197.8L527.3,199.4L530.2,200.6L531.6,202.8L533.7,204.0L534.2,205.7L535.8,205.6L538.2,202.8L540.1,202.1L542.7,204.6L545.3,203.6L546.7,206.0L548.4,204.8L551.0,204.9L555.3,201.6L557.7,200.5L559.5,198.5L562.3,197.4L565.9,199.6L565.9,201.3L563.1,202.2L563.4,205.3L560.6,209.0L563.5,208.8L563.7,211.7L566.2,213.7L569.0,212.8L571.4,210.7L571.0,209.6L572.4,208.3L574.3,208.1L574.7,206.8L583.2,206.8L583.4,206.0L588.1,204.6L589.1,201.4L591.0,201.5L592.6,200.4L595.7,200.9L598.3,203.2L599.6,204.6L598.8,207.8L599.3,209.1L597.2,214.5L597.0,216.2L593.8,223.4L593.4,225.1Z","lx":554.2,"ly":214.7},{"uf":"PR","nome":"Paran\u00e1","reg":"sul","d":"M310.8,483.9L309.3,480.4L308.5,479.5L308.4,477.0L307.4,474.2L304.4,473.0L304.6,472.3L300.5,473.6L299.7,474.5L297.7,473.4L297.6,471.2L300.3,470.3L299.8,469.2L303.8,468.1L300.8,467.7L300.8,466.6L302.2,465.4L300.6,464.7L300.9,462.4L302.2,463.2L301.5,461.5L302.3,460.3L304.0,460.3L302.4,459.3L302.2,457.1L302.9,453.7L301.9,451.7L302.7,450.0L305.0,448.4L305.1,446.4L306.9,440.4L310.0,438.4L311.2,435.5L311.8,432.7L313.5,431.3L318.0,429.3L321.1,427.4L331.5,428.6L333.7,426.7L336.4,428.1L341.0,429.3L343.8,428.8L347.2,430.7L350.5,431.6L351.8,433.5L354.0,433.2L358.8,433.8L363.4,433.3L364.2,435.3L366.7,436.4L368.0,438.8L368.2,441.1L367.6,442.6L369.0,445.8L368.2,448.1L370.8,451.6L373.2,455.6L371.9,458.5L372.1,460.6L375.0,461.0L375.9,460.2L379.3,461.3L381.6,461.1L383.4,462.2L382.6,463.2L382.1,467.0L382.8,467.4L384.3,465.6L386.8,466.5L387.8,469.8L389.4,469.9L388.6,471.1L386.8,473.4L384.6,474.3L385.3,469.8L384.7,470.9L383.5,470.0L384.0,472.5L383.3,473.4L380.8,472.9L379.5,471.6L381.1,474.2L382.4,474.0L384.6,475.0L383.6,475.7L381.3,481.2L373.9,481.1L371.3,482.8L367.1,484.4L362.3,481.0L357.2,481.5L355.2,481.0L352.6,481.6L351.3,484.1L349.0,484.7L346.6,484.0L344.1,485.7L343.6,486.9L344.2,489.7L341.6,491.0L340.6,489.5L335.4,489.4L333.6,489.1L331.0,487.0L324.9,486.2L322.5,485.2L318.2,485.6L315.0,483.6L313.6,484.4L310.8,483.9Z","lx":338.9,"ly":458.8},{"uf":"ES","nome":"Esp\u00edrito Santo","reg":"sudeste","d":"M481.1,406.3L482.0,404.4L482.5,400.9L481.7,400.0L483.9,397.6L488.4,398.0L489.0,397.7L490.1,394.1L491.9,392.8L492.6,389.6L495.7,386.9L496.4,384.2L496.3,381.8L494.9,380.0L494.3,377.6L492.4,377.0L496.9,376.5L497.1,374.8L495.6,373.8L496.3,370.9L494.4,368.4L495.7,366.6L497.9,365.5L499.9,365.5L498.1,363.5L501.7,363.5L505.3,362.8L508.4,364.4L508.7,364.9L515.8,370.3L514.3,375.9L514.1,379.4L514.3,384.7L513.9,387.5L511.7,391.1L508.9,392.6L506.3,396.8L505.1,400.4L503.3,399.5L503.2,400.9L504.8,401.0L503.2,403.7L498.8,408.7L497.3,408.7L495.9,411.6L493.4,415.1L492.0,414.1L489.1,414.1L486.7,413.4L482.9,411.7L482.8,407.2L481.1,406.3Z","lx":493.2,"ly":405.2},{"uf":"RJ","nome":"Rio de Janeiro","reg":"sudeste","d":"M437.4,443.5L435.6,441.1L436.5,440.1L436.8,437.8L441.5,435.9L444.4,435.6L446.0,433.9L445.4,432.2L440.8,432.3L439.5,431.9L437.7,429.1L436.9,428.7L439.3,428.3L442.6,426.7L445.8,426.9L447.6,425.8L451.7,424.4L456.7,424.6L458.5,423.9L462.9,424.5L474.0,420.5L472.8,419.2L474.1,415.7L475.3,414.7L477.6,408.3L479.5,408.3L481.1,406.3L482.8,407.2L482.9,411.7L486.7,413.4L489.1,414.1L492.0,414.1L493.4,415.1L493.3,416.5L491.6,418.9L492.5,425.6L492.0,426.6L488.3,428.4L482.1,430.1L477.5,433.7L476.9,436.2L478.2,437.6L476.8,438.1L475.7,440.1L467.7,439.2L466.6,439.6L461.9,439.3L460.5,438.0L462.0,436.2L461.6,434.4L458.7,435.5L460.1,437.9L459.2,439.4L447.9,440.1L453.7,439.2L450.1,437.4L448.6,437.6L444.8,439.7L446.8,441.3L443.3,441.8L442.7,441.0L444.7,439.6L444.7,438.5L441.9,438.2L438.0,439.7L437.9,441.4L440.6,442.5L439.5,443.7L437.4,443.5Z","lx":477.2,"ly":427.2},{"uf":"RN","nome":"Rio Grande do Norte","reg":"nordeste","d":"M543.4,182.5L542.1,182.8L542.5,180.7L545.2,177.5L547.0,177.8L549.7,174.7L551.0,170.6L553.1,168.2L556.3,161.9L559.1,159.9L563.8,158.4L565.3,160.0L569.0,160.3L570.6,162.1L574.1,163.4L576.2,162.7L580.7,163.1L582.7,162.4L590.2,164.1L591.5,165.3L593.9,169.7L595.4,176.8L596.0,178.1L596.1,181.2L596.9,182.0L597.9,186.4L596.6,186.9L592.6,186.6L590.2,185.5L587.1,184.7L583.1,185.2L578.2,184.2L577.6,182.4L576.2,182.4L574.5,183.5L574.1,185.1L575.1,187.5L573.7,187.6L574.2,190.0L573.0,192.3L570.8,193.0L569.9,192.2L569.8,189.6L566.8,188.5L563.1,190.3L561.4,188.2L558.7,187.8L558.9,185.8L560.1,185.3L560.7,183.3L564.2,179.0L562.9,177.5L555.2,179.7L553.8,182.3L550.5,183.8L549.3,185.0L547.0,184.6L543.4,182.5Z","lx":571.7,"ly":176.7},{"uf":"AM","nome":"Amazonas","reg":"norte","d":"M161.4,46.5L162.6,47.6L165.1,47.4L167.3,49.8L169.7,49.9L171.8,51.0L171.7,54.2L170.6,56.4L173.1,59.3L175.8,68.7L174.4,69.8L175.2,72.8L174.5,74.5L173.9,78.5L174.6,79.7L173.8,81.0L175.3,84.7L177.0,86.5L177.0,88.4L177.8,91.1L176.8,92.3L175.3,92.0L174.9,93.2L176.2,94.0L179.5,97.4L182.3,98.9L184.6,102.4L186.4,102.2L188.8,103.1L188.6,100.9L189.5,97.0L189.2,95.8L189.9,92.5L191.0,91.1L196.4,88.8L199.2,89.8L201.0,91.8L202.2,94.3L205.6,94.0L206.3,92.6L208.3,92.1L208.6,90.7L207.5,89.2L208.8,84.8L211.6,79.2L213.1,77.8L217.1,77.6L230.9,77.8L231.2,86.6L233.0,87.8L232.8,90.7L234.7,93.0L237.6,94.5L238.4,97.3L241.9,100.2L247.1,103.4L249.7,105.6L254.7,107.7L258.5,109.0L259.7,110.9L263.8,112.7L263.7,114.6L265.5,115.3L267.6,114.4L269.1,116.1L269.3,117.8L263.6,130.1L240.3,181.1L237.7,184.2L238.8,188.1L241.5,190.5L242.8,194.0L241.7,195.2L241.7,197.9L239.2,201.4L240.3,205.9L239.8,208.1L238.4,210.5L238.7,212.5L236.8,215.7L190.1,216.8L188.4,215.6L186.6,216.5L186.0,218.2L182.1,216.9L181.4,214.5L179.4,214.0L178.3,211.1L175.7,210.8L172.8,206.2L170.0,205.4L160.4,205.5L159.6,208.1L157.6,208.5L157.2,210.0L154.7,210.9L153.6,212.5L154.7,214.0L153.6,216.2L151.6,216.4L151.9,220.3L146.5,220.7L144.6,221.9L141.8,221.4L139.7,223.5L140.0,225.0L137.3,228.5L135.2,225.8L132.3,227.9L129.1,229.0L127.1,230.9L124.5,228.6L117.4,228.7L117.4,230.5L115.9,232.4L112.4,234.2L111.1,235.7L64.9,215.7L56.1,211.3L20.7,203.7L2.9,196.8L3.4,193.3L4.6,191.7L9.3,187.9L11.9,187.1L12.8,185.3L11.1,179.6L12.4,176.3L14.4,173.5L14.7,169.5L15.8,166.4L15.4,164.1L19.9,162.2L25.5,157.8L28.2,155.3L32.7,153.2L34.4,153.6L36.8,152.6L39.0,152.7L40.1,151.4L45.1,151.4L47.1,148.0L50.2,147.0L50.9,148.2L53.3,147.2L55.1,147.7L55.2,149.1L56.8,150.4L57.5,149.3L60.1,149.9L60.7,148.1L68.6,100.0L67.7,97.1L66.4,95.8L65.0,92.8L65.7,91.5L64.9,89.3L60.1,86.0L58.1,83.2L58.4,71.8L65.1,70.8L66.9,69.6L69.1,71.0L72.6,70.9L71.8,69.8L72.3,67.4L70.2,64.7L69.0,64.3L61.5,64.3L61.5,54.0L65.8,53.1L69.3,53.9L87.6,54.0L85.9,52.3L87.2,49.5L88.6,50.8L90.2,53.6L93.5,52.6L96.5,48.8L98.9,47.5L100.4,48.3L103.8,54.3L104.5,57.0L104.1,61.5L104.6,62.8L107.5,62.0L114.7,68.6L118.6,69.7L121.4,68.6L124.9,66.0L127.4,65.9L128.4,67.7L127.4,69.6L127.7,70.9L129.5,70.4L131.3,67.0L133.3,66.7L134.3,63.6L136.1,63.4L138.9,61.4L140.6,61.8L143.3,59.1L145.5,57.7L145.8,59.5L149.9,56.6L150.6,55.6L151.1,51.7L152.0,50.7L155.6,50.3L157.8,48.6L161.0,47.8L161.4,46.5Z","lx":152.1,"ly":152.5},{"uf":"MT","nome":"Mato Grosso","reg":"centro-oeste","d":"M242.8,194.0L244.0,195.1L246.6,199.4L248.4,204.8L250.5,207.6L249.9,210.7L251.5,215.7L253.0,216.2L255.8,218.7L258.8,220.1L259.7,222.9L262.9,223.5L263.9,225.4L265.3,225.1L268.6,226.5L289.5,227.8L347.2,231.4L363.3,232.4L362.3,235.1L361.1,236.4L360.3,240.0L358.9,243.3L357.7,244.8L357.1,249.1L357.4,250.6L355.4,257.8L356.7,259.4L355.9,261.0L356.7,263.6L356.2,265.4L356.3,268.4L357.2,272.1L356.3,275.1L357.3,277.9L359.0,278.4L358.8,280.1L357.4,282.0L357.6,284.4L356.2,287.3L354.7,289.1L354.1,291.2L353.1,291.7L353.1,297.7L352.1,298.0L351.0,302.2L351.4,304.0L349.3,309.7L348.2,311.1L346.1,310.7L343.1,312.3L341.0,314.5L340.6,317.1L337.5,323.6L332.1,325.3L330.9,327.2L327.8,329.1L327.8,330.0L325.8,331.0L326.6,333.1L326.3,334.7L323.7,337.9L320.6,339.8L320.2,342.7L317.9,346.2L317.3,350.5L320.0,357.5L316.3,357.1L310.1,357.3L306.2,355.6L308.2,352.4L309.8,351.6L310.8,345.7L308.7,346.5L306.8,348.8L304.0,351.4L300.3,352.1L299.9,350.7L298.3,349.7L295.9,349.8L292.9,351.8L288.7,352.4L283.5,349.6L282.4,347.9L279.8,347.3L275.1,344.8L273.0,345.3L271.8,346.4L265.5,347.0L264.1,349.5L262.5,351.0L262.3,352.3L260.1,354.2L255.9,355.5L253.2,354.9L251.3,353.6L250.3,350.9L247.1,350.0L243.8,347.6L241.5,346.7L240.2,340.8L239.9,337.7L241.7,335.0L241.8,331.6L240.0,332.3L215.3,332.0L214.6,331.2L213.3,320.2L208.0,314.1L212.6,313.9L212.2,306.7L209.4,301.4L209.3,298.7L210.5,296.9L209.1,294.0L205.3,292.0L210.3,288.2L211.9,282.7L213.0,281.2L214.6,280.5L215.8,277.4L217.1,275.6L218.3,272.0L217.3,269.9L217.3,268.1L215.8,264.8L214.6,264.7L213.9,260.0L216.7,256.6L215.2,252.9L211.0,252.1L209.5,252.4L208.5,250.9L192.9,251.2L192.2,250.5L192.7,242.5L191.3,239.8L191.1,236.7L191.8,233.6L191.1,231.6L192.3,230.2L190.2,225.3L191.4,223.8L191.0,222.4L192.0,219.0L190.1,216.8L236.8,215.7L238.7,212.5L238.4,210.5L239.8,208.1L240.3,205.9L239.2,201.4L241.7,197.9L241.7,195.2L242.8,194.0Z","lx":275.0,"ly":283.9},{"uf":"DF","nome":"Distrito Federal","reg":"centro-oeste","d":"M405.4,328.7L405.4,328.7L405.4,328.7L392.4,328.3L391.0,325.2L392.2,323.6L391.7,322.9L392.7,319.9L403.9,320.3L405.6,321.7L404.6,327.8L405.4,328.7L405.4,328.7L405.4,328.7Z","lx":404.0,"ly":324.5},{"uf":"AC","nome":"Acre","reg":"norte","d":"M113.9,236.8L110.2,239.8L107.8,242.4L105.7,243.6L103.7,243.7L101.5,246.0L100.0,246.6L98.1,249.9L95.9,249.3L92.4,250.1L89.6,254.6L84.9,257.0L82.3,257.3L82.7,255.5L72.9,254.8L68.1,255.5L64.5,254.9L59.6,257.5L57.3,257.2L55.7,255.7L54.2,257.0L53.3,238.5L54.6,236.4L53.3,233.9L54.6,231.7L49.5,235.6L47.5,238.2L45.3,239.3L44.8,240.3L42.0,241.5L29.8,242.2L30.2,240.3L28.5,238.3L27.6,234.8L25.7,234.0L19.9,233.1L13.8,233.4L17.4,228.0L17.0,226.4L13.8,222.3L11.0,220.4L10.8,218.5L8.1,216.9L5.7,211.2L4.0,210.3L3.6,209.0L4.9,207.6L2.9,206.6L0.0,203.8L1.7,201.0L4.5,199.7L2.9,196.8L20.7,203.7L56.1,211.3L64.9,215.7L111.1,235.7L113.9,236.8Z","lx":55.8,"ly":228.4},{"uf":"RO","nome":"Rond\u00f4nia","reg":"norte","d":"M205.3,292.0L202.7,290.4L200.7,290.2L200.4,289.1L198.9,290.0L195.9,289.7L194.2,290.5L192.3,290.0L188.4,290.5L186.0,287.9L183.3,284.2L179.4,284.5L179.0,283.8L176.2,283.1L175.5,282.1L173.7,282.6L171.8,280.4L171.1,280.6L169.5,277.5L167.1,278.3L164.7,277.9L163.1,276.2L160.6,275.1L158.4,274.8L156.7,276.3L153.3,276.1L152.2,275.3L149.5,275.2L148.0,274.0L148.3,272.2L144.5,270.6L143.3,268.8L140.1,268.4L139.0,264.7L137.0,264.6L136.5,261.1L135.4,260.9L133.7,255.5L134.9,252.9L134.6,250.9L133.4,250.2L133.5,248.4L132.7,247.2L133.0,244.5L134.7,240.8L133.9,236.3L134.3,234.7L133.2,232.9L131.9,232.5L130.0,235.0L128.1,233.8L120.8,234.8L116.8,236.3L113.9,236.8L111.1,235.7L112.4,234.2L115.9,232.4L117.4,230.5L117.4,228.7L124.5,228.6L127.1,230.9L129.1,229.0L132.3,227.9L135.2,225.8L137.3,228.5L140.0,225.0L139.7,223.5L141.8,221.4L144.6,221.9L146.5,220.7L151.9,220.3L151.6,216.4L153.6,216.2L154.7,214.0L153.6,212.5L154.7,210.9L157.2,210.0L157.6,208.5L159.6,208.1L160.4,205.5L170.0,205.4L172.8,206.2L175.7,210.8L178.3,211.1L179.4,214.0L181.4,214.5L182.1,216.9L186.0,218.2L186.6,216.5L188.4,215.6L190.1,216.8L192.0,219.0L191.0,222.4L191.4,223.8L190.2,225.3L192.3,230.2L191.1,231.6L191.8,233.6L191.1,236.7L191.3,239.8L192.7,242.5L192.2,250.5L192.9,251.2L208.5,250.9L209.5,252.4L211.0,252.1L215.2,252.9L216.7,256.6L213.9,260.0L214.6,264.7L215.8,264.8L217.3,268.1L217.3,269.9L218.3,272.0L217.1,275.6L215.8,277.4L214.6,280.5L213.0,281.2L211.9,282.7L210.3,288.2L205.3,292.0Z","lx":174.4,"ly":255.7}]};
+
+const REGIOES = {
+  "norte":        {nome:"Norte",        cor:"var(--r-norte)"},
+  "nordeste":     {nome:"Nordeste",     cor:"var(--r-nordeste)"},
+  "centro-oeste": {nome:"Centro-Oeste", cor:"var(--r-centro-oeste)"},
+  "sudeste":      {nome:"Sudeste",      cor:"var(--r-sudeste)"},
+  "sul":          {nome:"Sul",          cor:"var(--r-sul)"},
+  "remoto":       {nome:"Remoto",       cor:"var(--verde)"},
+};
+const UF_REG = {REMOTO:"remoto"};
+const UF_NOME = {};
+MAPA.estados.forEach(e=>{UF_REG[e.uf]=e.reg; UF_NOME[e.uf]=e.nome});
+
+/* ================= utilidades ================= */
+const H24 = 24*3600e3;
+const dataVaga = v => new Date(v.postado.replace(" ","T")+":00");
+const idade = v => Date.now() - dataVaga(v);
+const quente = v => idade(v) >= 0 && idade(v) < H24;
+const pad = n => String(n).padStart(2,"0");
+function haQuanto(ms){
+  const m=Math.floor(ms/60000), h=Math.floor(m/60), d=Math.floor(h/24);
+  if(m<1) return "agora mesmo";
+  if(m<60) return `há ${m} min`;
+  if(h<24) return `há ${h}h ${pad(m%60)}min`;
+  return d===1 ? "há 1 dia" : `há ${d} dias`;
+}
+function restante(ms){
+  const s=Math.max(0,Math.floor((H24-ms)/1000));
+  return {h:Math.floor(s/3600), m:Math.floor(s%3600/60), s:s%60};
+}
+const linkWhats = (extra="") =>
+  `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(CONFIG.mensagemCurriculo+extra)}`;
+const vagasDa = reg => VAGAS.filter(v=>UF_REG[v.uf]===reg);
+function ligarWhats(){ document.querySelectorAll("[data-whats]").forEach(a=>a.href=linkWhats()); }
+
+/* ================= Produtos & calculadora ================= */
+const P = CONFIG.produtos;
+const brl = n => { const c=Number.isInteger(n)?0:2; return "R$ " + n.toLocaleString("pt-BR",{minimumFractionDigits:c, maximumFractionDigits:c}); };
+let salario = 4500;
+function retorno(preco){
+  const dia = salario/22, dias = preco/dia;
+  if(dias < 1){ const h=Math.max(1,Math.round(dias*8)); return {curto:`${h}h`, longo:`${h} ${h===1?"hora":"horas"} de trabalho`, dias}; }
+  const d = dias.toLocaleString("pt-BR",{maximumFractionDigits:1});
+  return {curto:`${d} ${dias<2?"dia":"dias"}`, longo:`${d} ${dias<2?"dia":"dias"} de trabalho`, dias};
+}
+function montarProdutos(){
+  const grid=document.getElementById("prodGrid");
+  grid.innerHTML=`
+    <div class="prod">
+      <div class="prod-tag">📘 Eu te ensino</div>
+      <h3>${P.primeiro.nome}</h3>
+      <p>Aprenda passo a passo a montar seu currículo de Enfermagem do zero, no seu ritmo.</p>
+      <ul><li>Ideal para o 1º estágio ou 1º emprego</li><li>Exemplos pensados para a Enfermagem</li><li>Aprende uma vez, usa para sempre</li></ul>
+      <div class="preco"><small>por</small> ${brl(P.primeiro.preco)}</div>
+      <div class="retorno" data-ret="primeiro"></div>
+      <a class="btn btn-contorno" href="${P.primeiro.link}">Quero aprender a fazer</a>
+    </div>
+    <div class="prod top">
+      <div class="faixa-top">✨ Eu faço pra você</div>
+      <div class="prod-tag">🚀 Sem esforço</div>
+      <h3>${P.impacto.nome}</h3>
+      <p>Eu monto o seu currículo profissional, pensado para as vagas de Enfermagem que você quer.</p>
+      <ul><li>Você não escreve nada do zero</li><li>Valoriza estágios, cursos e experiências</li><li>Pronto para se candidatar rápido</li></ul>
+      <div class="preco"><small>por</small> ${brl(P.impacto.preco)}</div>
+      <div class="retorno" data-ret="impacto"></div>
+      <a class="btn btn-branco" href="${P.impacto.link}">Quero o meu currículo de impacto</a>
+    </div>`;
+  document.getElementById("ctaImpacto").href=P.impacto.link;
+  const s=document.getElementById("sal");
+  s.oninput=()=>{salario=+s.value; atualizarCalc()};
+  atualizarCalc();
+}
+function opcoesHTML(){
+  return `
+    <a class="opcao" href="${P.primeiro.link}">
+      <span class="op-ico">📘</span>
+      <span class="op-txt"><b>${P.primeiro.nome}</b><small>Eu te ensino a fazer · ${brl(P.primeiro.preco)}</small><em data-ret-curto="primeiro"></em></span>
+      <span class="op-seta">→</span>
+    </a>
+    <a class="opcao top" href="${P.impacto.link}">
+      <span class="op-ico">🚀</span>
+      <span class="op-txt"><b>${P.impacto.nome}</b><small>Eu faço pra você · ${brl(P.impacto.preco)}</small><em data-ret-curto="impacto"></em></span>
+      <span class="op-seta">→</span>
+    </a>`;
+}
+function atualizarCalc(){
+  const s=document.getElementById("sal");
+  const pct=(salario-s.min)/(s.max-s.min)*100;
+  s.style.background=`linear-gradient(90deg,var(--verde) ${pct}%,#dfe7e0 ${pct}%)`;
+  document.getElementById("salTxt").textContent=brl(salario);
+  const a=retorno(P.primeiro.preco), b=retorno(P.impacto.preco);
+  const max=Math.max(a.dias,b.dias,0.01);
+  document.getElementById("calcRes").innerHTML=[["primeiro",a],["impacto",b]].map(([k,r])=>`
+    <div class="linha-res">
+      <div class="lr-topo"><span>${P[k].nome}</span><b>${r.longo}</b></div>
+      <div class="lr-barra"><i class="${k}" style="width:${Math.max(4,r.dias/22*100*4)}%"></i></div>
+    </div>`).join("");
+  document.getElementById("calcExtra").innerHTML=
+    `Um mês tem 22 dias de trabalho. Se o currículo te ajudar a começar <b>1 mês antes</b>, são <b>${brl(salario)}</b> a mais no seu bolso.`;
+  document.getElementById("statDias").textContent=b.curto;
+  document.querySelectorAll("[data-ret]").forEach(el=>{
+    el.innerHTML=`💡 Com salário de ${brl(salario)}, se paga em <b>${retorno(P[el.dataset.ret].preco).longo}</b>`;
+  });
+  document.querySelectorAll("[data-ret-curto]").forEach(el=>{
+    el.textContent=`Se paga em ${retorno(P[el.dataset.retCurto].preco).longo} (salário de ${brl(salario)})`;
+  });
+}
+function abrirProdutos(){
+  document.getElementById("mpOpcoes").innerHTML=opcoesHTML(); atualizarCalc();
+  fecharTodos(); abrir("modalProd");
+}
+
+/* ================= Tela do mapa ================= */
+function montarMapa(){
+  const svg=document.getElementById("mapa");
+  svg.setAttribute("viewBox",`-10 -10 ${MAPA.w+20} ${MAPA.h+20}`);
+  const ns="http://www.w3.org/2000/svg";
+  const grupos={};
+  MAPA.estados.forEach(e=>{
+    if(!grupos[e.reg]){
+      const g=document.createElementNS(ns,"g"); g.dataset.reg=e.reg; grupos[e.reg]=g; svg.appendChild(g);
+      g.addEventListener("mouseenter",()=>focar(e.reg));
+      g.addEventListener("mouseleave",()=>focar(null));
+      g.addEventListener("click",()=>{location.hash=e.reg});
+    }
+    const p=document.createElementNS(ns,"path");
+    p.setAttribute("d",e.d); p.setAttribute("class","estado");
+    const t=document.createElementNS(ns,"title"); t.textContent=e.nome; p.appendChild(t);
+    grupos[e.reg].appendChild(p);
+  });
+  // selos com nome da região + quantidade de vagas
+  Object.keys(grupos).forEach(reg=>{
+    const est=MAPA.estados.filter(e=>e.reg===reg);
+    let x=est.reduce((a,e)=>a+e.lx,0)/est.length, y=est.reduce((a,e)=>a+e.ly,0)/est.length;
+    if(reg==="nordeste"){x+=10} if(reg==="centro-oeste"){y+=10}
+    const n=vagasDa(reg).length;
+    const g=document.createElementNS(ns,"g"); g.setAttribute("class","selo-mapa");
+    const w=Math.max(86, REGIOES[reg].nome.length*9+20);
+    g.innerHTML=`<rect x="${x-w/2}" y="${y-22}" width="${w}" height="42" rx="10"/>
+      <text class="nome" x="${x}" y="${y-3}" text-anchor="middle">${REGIOES[reg].nome}</text>
+      <text class="qtd" x="${x}" y="${y+13}" text-anchor="middle">${n} ${n===1?"vaga":"vagas"}</text>`;
+    svg.appendChild(g);
+  });
+  // botões abaixo do mapa
+  const box=document.getElementById("botoesRegiao");
+  ["norte","nordeste","centro-oeste","sudeste","sul","remoto"].forEach(reg=>{
+    const vs=vagasDa(reg), q=vs.filter(quente).length;
+    const b=document.createElement("button");
+    b.className="reg-btn"+(reg==="remoto"?" remoto":"");
+    b.innerHTML = reg==="remoto"
+      ? `🌐 <div><b>Vagas remotas</b><small>${vs.length} ${vs.length===1?"vaga":"vagas"}${q?` · 🔥 ${q} nova${q>1?"s":""}`:""}</small></div>`
+      : `<span class="reg-cor" style="background:${REGIOES[reg].cor}"></span><div><b>${REGIOES[reg].nome}</b><small>${vs.length} ${vs.length===1?"vaga":"vagas"}${q?` · 🔥 ${q} nova${q>1?"s":""}`:""}</small></div>`;
+    b.onmouseenter=()=>focar(reg); b.onmouseleave=()=>focar(null);
+    b.onclick=()=>{location.hash=reg};
+    box.appendChild(b);
+  });
+  const novas=VAGAS.filter(quente).length;
+  document.getElementById("pillNovas").textContent =
+    novas ? `${novas} ${novas===1?"vaga nova":"vagas novas"} nas últimas 24h` : `${VAGAS.length} vagas abertas`;
+}
+function focar(reg){
+  const svg=document.getElementById("mapa");
+  svg.classList.toggle("tem-foco",!!reg);
+  svg.querySelectorAll("g[data-reg]").forEach(g=>g.classList.toggle("foco",g.dataset.reg===reg));
+}
+
+/* ================= Tela da região ================= */
+let regAtual=null, tipoAtual="Estágio", ufAtual="Todos";
+
+function abrirRegiao(reg){
+  regAtual=reg; ufAtual="Todos";
+  const vs=vagasDa(reg);
+  const est=vs.filter(v=>v.tipo==="Estágio").length, emp=vs.length-est;
+  // abre na aba que tem mais vagas novas (ou mais vagas)
+  tipoAtual = est>=emp ? "Estágio" : "Emprego";
+  document.getElementById("regTitulo").textContent = reg==="remoto" ? "Vagas remotas 🌐" : `Região ${REGIOES[reg].nome}`;
+  const q=vs.filter(quente).length;
+  document.getElementById("regSub").textContent =
+    `${vs.length} ${vs.length===1?"vaga aberta":"vagas abertas"}` + (q?` · 🔥 ${q} postada${q>1?"s":""} nas últimas 24h`:"");
+  document.getElementById("nEst").textContent=est;
+  document.getElementById("nEmp").textContent=emp;
+  renderLista();
+  window.scrollTo(0,0);
+  // pop-up de curiosidade: 1x por visita
+  let visto=false; try{visto=sessionStorage.getItem("rota24")==="1"}catch(e){}
+  if(!visto){ setTimeout(()=>{ if(regAtual) abrir("modal24"); },1400); try{sessionStorage.setItem("rota24","1")}catch(e){} }
+}
+
+function renderLista(){
+  document.querySelectorAll(".aba").forEach(a=>a.classList.toggle("ativa",a.dataset.tipo===tipoAtual));
+  const base=vagasDa(regAtual).filter(v=>v.tipo===tipoAtual);
+  // chips de estado
+  const ufs=[...new Set(vagasDa(regAtual).map(v=>v.uf))].filter(u=>u!=="REMOTO").sort();
+  const chips=document.getElementById("chipsUF"); chips.innerHTML="";
+  if(ufs.length>1){
+    ["Todos",...ufs].forEach(u=>{
+      const b=document.createElement("button");
+      b.className="chip"+(u===ufAtual?" ativo":""); b.textContent=u==="Todos"?"Todos os estados":u;
+      b.onclick=()=>{ufAtual=u;renderLista()}; chips.appendChild(b);
+    });
+  }
+  const lista=base.filter(v=>ufAtual==="Todos"||v.uf===ufAtual).sort((a,b)=>dataVaga(b)-dataVaga(a));
+  const el=document.getElementById("lista"); el.innerHTML="";
+  if(!lista.length){
+    el.innerHTML=`<div class="vazio">Ainda não tem vaga de <b>${tipoAtual.toLowerCase()}</b> aqui.<br>Me chama no WhatsApp que eu te aviso quando aparecer! 💬</div>`;
+  }
+  lista.forEach((v,i)=>{
+    const c=document.createElement("div");
+    c.className="vaga"+(quente(v)?" quente":"");
+    c.dataset.idx=VAGAS.indexOf(v);
+    c.innerHTML=`
+      <div class="vaga-topo">
+        <div><h3>${v.cargo}</h3><div class="empresa">${v.empresa}</div></div>
+        <span class="uf">${v.uf==="REMOTO"?"🌐":v.uf}</span>
+      </div>
+      <div class="infos"><span>📍 ${v.cidade}${v.uf!=="REMOTO"?" – "+v.uf:""}</span></div>
+      <div class="tempo-slot"></div>
+      <button class="btn btn-vaga">Quero me candidatar</button>`;
+    c.querySelector("button").onclick=()=>abrirVaga(v);
+    el.appendChild(c);
+    if(i===1) el.appendChild(oferta());
+  });
+  if(lista.length && lista.length<2) el.appendChild(oferta());
+  atualizarTempos();
+}
+function oferta(){
+  const d=document.createElement("div"); d.className="oferta";
+  d.innerHTML=`<div class="cta-emoji">🎯</div>
+    <h3>Não perca a vaga dos seus sonhos por bobeira.</h3>
+    <p>Faça seu <b>Currículo de Impacto</b> e se candidate ainda dentro das primeiras 24h.</p>
+    <a class="btn btn-pulsa" href="${P.impacto.link}">Quero meu Currículo de Impacto →</a>
+    <button class="btn btn-sec" data-prod>Ver as duas opções</button>`;
+  d.querySelector("[data-prod]").onclick=abrirProdutos;
+  return d;
+}
+function atualizarTempos(){
+  document.querySelectorAll(".vaga").forEach(c=>{
+    const v=VAGAS[c.dataset.idx], ms=idade(v), slot=c.querySelector(".tempo-slot");
+    if(quente(v)){
+      const r=restante(ms), pct=Math.max(0,100-ms/H24*100);
+      slot.innerHTML=`<div class="janela">
+        <div class="janela-linha"><span>🔥 Postada ${haQuanto(ms)}</span><span class="relogio">${pad(r.h)}:${pad(r.m)}:${pad(r.s)}</span></div>
+        <div class="barra-prog"><i style="width:${pct}%"></i></div>
+        <small>Tempo restante para se candidatar nas primeiras 24h · <button class="info-ico" data-info24>por que isso importa?</button></small>
+      </div>`;
+      slot.querySelector("[data-info24]").onclick=()=>abrir("modal24");
+    } else {
+      slot.innerHTML=`<div class="tempo">🕒 Postada ${haQuanto(ms)}</div>`;
+    }
+  });
+}
+
+/* ================= Pop-ups ================= */
+function abrir(id){ document.getElementById(id).classList.add("aberto"); }
+function fecharTodos(){ document.querySelectorAll(".fundo-modal").forEach(m=>m.classList.remove("aberto")); }
+document.querySelectorAll(".fundo-modal").forEach(m=>m.addEventListener("click",e=>{ if(e.target===m||e.target.closest("[data-fechar]")) fecharTodos(); }));
+
+let vagaAberta=null;
+function abrirVaga(v){
+  vagaAberta=v;
+  document.getElementById("mvLink").href=v.link;
+  document.getElementById("mvWhats").href=linkWhats(` A vaga é: ${v.cargo} – ${v.cidade}.`);
+  document.getElementById("mvOpcoes").innerHTML=opcoesHTML(); atualizarCalc();
+  pintarRelogioModal();
+  abrir("modalVaga");
+}
+function pintarRelogioModal(){
+  const v=vagaAberta; if(!v) return;
+  const rel=document.getElementById("mvRelogio"), tit=document.getElementById("mvEyebrow");
+  if(quente(v)){
+    const r=restante(idade(v));
+    tit.textContent="🔥 Você ainda está nas primeiras 24h desta vaga";
+    rel.style.display="flex";
+    rel.innerHTML=`<div><b>${pad(r.h)}</b><small>horas</small></div><div><b>${pad(r.m)}</b><small>min</small></div><div><b>${pad(r.s)}</b><small>seg</small></div>`;
+  } else {
+    tit.textContent="Antes de se candidatar";
+    rel.style.display="none";
+  }
+}
+
+/* ================= Navegação ================= */
+document.querySelectorAll(".aba").forEach(a=>a.onclick=()=>{tipoAtual=a.dataset.tipo;renderLista()});
+document.getElementById("btnVoltar").onclick=()=>{location.hash="inicio"};
+function rota(){
+  fecharTodos();
+  const h=location.hash.replace("#","");
+  const ehRegiao = !!REGIOES[h];
+  document.getElementById("tela-inicio").classList.toggle("ativa",!ehRegiao);
+  document.getElementById("tela-regiao").classList.toggle("ativa",ehRegiao);
+  if(ehRegiao) abrirRegiao(h); else { regAtual=null; window.scrollTo(0,0); }
+}
+window.addEventListener("hashchange",rota);
+
+montarMapa(); montarProdutos(); ligarWhats(); rota();
+document.querySelectorAll("[data-prod]").forEach(b=>b.onclick=abrirProdutos);
+setInterval(()=>{ if(regAtual){ atualizarTempos(); pintarRelogioModal(); } },1000);
+</script>
+</body>
+</html>

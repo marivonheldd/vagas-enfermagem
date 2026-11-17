@@ -28,17 +28,10 @@ const CONFIG = {
             (é isso que faz o contador e o selo 🔥 das 24h funcionarem)
    ========================================================= */
 const VAGAS = [
-  { cargo:"Enfermeiro(a) Assistencial – UTI Adulto", empresa:"Hospital Regional", cidade:"Campo Grande", uf:"MS", tipo:"Emprego", postado:"2026-11-16 18:40", link:"https://exemplo.com/1" },
-  { cargo:"Estágio em Enfermagem – Clínica Médica", empresa:"Santa Casa", cidade:"Cuiabá", uf:"MT", tipo:"Estágio", postado:"2026-11-16 09:15", link:"https://exemplo.com/2" },
-  { cargo:"Enfermeiro(a) de Pronto Atendimento", empresa:"Rede de Clínicas", cidade:"Goiânia", uf:"GO", tipo:"Emprego", postado:"2026-11-14 10:00", link:"https://exemplo.com/3" },
-  { cargo:"Estágio Remunerado – Saúde Coletiva", empresa:"Secretaria de Saúde", cidade:"Brasília", uf:"DF", tipo:"Estágio", postado:"2026-11-15 21:30", link:"https://exemplo.com/4" },
-  { cargo:"Enfermeiro(a) Trainee", empresa:"Grupo Hospitalar", cidade:"São Paulo", uf:"SP", tipo:"Emprego", postado:"2026-11-16 12:05", link:"https://exemplo.com/5" },
-  { cargo:"Estágio em Enfermagem – Centro Cirúrgico", empresa:"Hospital Particular", cidade:"Belo Horizonte", uf:"MG", tipo:"Estágio", postado:"2026-11-13 08:00", link:"https://exemplo.com/6" },
-  { cargo:"Enfermeiro(a) Obstetra", empresa:"Maternidade", cidade:"Rio de Janeiro", uf:"RJ", tipo:"Emprego", postado:"2026-11-12 14:20", link:"https://exemplo.com/7" },
-  { cargo:"Enfermeiro(a) da Estratégia Saúde da Família", empresa:"Processo Seletivo Municipal", cidade:"Londrina", uf:"PR", tipo:"Emprego", postado:"2026-11-16 07:50", link:"https://exemplo.com/8" },
-  { cargo:"Estágio em Enfermagem – Pediatria", empresa:"Hospital Infantil", cidade:"Porto Alegre", uf:"RS", tipo:"Estágio", postado:"2026-11-15 16:10", link:"https://exemplo.com/9" },
-  { cargo:"Enfermeiro(a) Home Care", empresa:"Atenção Domiciliar", cidade:"Recife", uf:"PE", tipo:"Emprego", postado:"2026-11-16 15:30", link:"https://exemplo.com/10" },
-  { cargo:"Estágio em Enfermagem – Emergência", empresa:"Hospital Geral", cidade:"Fortaleza", uf:"CE", tipo:"Estágio", postado:"2026-11-11 11:00", link:"https://exemplo.com/11" },
-  { cargo:"Enfermeiro(a) Assistencial", empresa:"Hospital Universitário", cidade:"Belém", uf:"PA", tipo:"Emprego", postado:"2026-11-16 10:45", link:"https://exemplo.com/12" },
-  { cargo:"Enfermeiro(a) de Telessaúde", empresa:"Healthtech", cidade:"100% remoto", uf:"REMOTO", tipo:"Emprego", postado:"2026-11-16 17:00", link:"https://exemplo.com/13" },
+  { cargo:"Estágio em Enfermagem – Ambulatório Especializado", empresa:"Santa Casa BH", cidade:"Belo Horizonte", uf:"MG", tipo:"Estágio", postado:"2026-11-11 08:00", link:"https://santacasabh.gupy.io/job/eyJqb2JJZCI6MTI4NDcxODgsInNvdXJjZSI6ImxpbmtlZGluIn0=?jobBoardSource=linkedin" },
+  { cargo:"Estágio em Enfermagem – Ambulatório de Oncologia", empresa:"Grupo Orizonti", cidade:"Belo Horizonte", uf:"MG", tipo:"Estágio", postado:"2026-11-11 08:00", link:"https://grupoorizonti.gupy.io/job/eyJqb2JJZCI6MTI4NjQ4NDIsInNvdXJjZSI6ImxpbmtlZGluIn0=?jobBoardSource=share_link" },
+  { cargo:"Estágio em Enfermagem – CME", empresa:"Hospital Urológica", cidade:"Belo Horizonte", uf:"MG", tipo:"Estágio", postado:"2026-11-13 21:00", link:"https://www.linkedin.com/jobs/view/4491036090/" },
+  { cargo:"Estágio em Enfermagem – Hospital São Carlos", empresa:"Rede D'Or", cidade:"Fortaleza", uf:"CE", tipo:"Estágio", postado:"2026-11-13 21:00", link:"https://www.linkedin.com/jobs/view/4435120854/" },
+  { cargo:"Estágio em Enfermagem – Banco de Talentos", empresa:"Rede D'Or", cidade:"Recife", uf:"PE", tipo:"Estágio", postado:"2026-11-13 21:00", link:"https://www.linkedin.com/jobs/view/4455960615/" },
+  { cargo:"Estágio em Gestão da Qualidade (hospital)", empresa:"Hospital Santa Helena", cidade:"Goiânia", uf:"GO", tipo:"Estágio", postado:"2026-11-16 08:00", link:"https://www.jobbol.com.br/vaga/163629-estagiario-na-area-de-gestao-da-qualidade?cidade=5418&utm_source=LinkedIn&utm_medium=organic&utm_campaign=LinkedIn&src=LinkedIn_JobSource" },
 ];

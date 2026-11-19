@@ -85,9 +85,16 @@ h1{font-size:25px;font-weight:800;margin:6px 0 4px;line-height:1.2}
 .cv-faixa strong{display:block;font-size:15px;color:var(--laranja-esc)}
 .cv-faixa a{flex:none;background:var(--laranja);color:#fff;font-weight:700;font-size:13px;padding:10px 12px;border-radius:10px}
 
-.abas{display:grid;grid-template-columns:1fr 1fr;background:#5e2333;border-radius:14px;padding:4px;margin:14px 0 10px;position:sticky;top:8px;z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.abas{display:grid;grid-template-columns:1fr 1fr 1fr;background:#5e2333;border-radius:14px;padding:4px;margin:14px 0 10px;position:sticky;top:8px;z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.05)}
 .aba{border:none;background:transparent;padding:11px 6px;border-radius:10px;font-weight:700;font-size:14.5px;color:#f0dfe4}
 .aba.ativa{background:#fff;color:var(--texto);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.abas.so-uma{display:none}
+.aba[data-tipo="Premium"].ativa{background:linear-gradient(135deg,#fff7e0,#fff);color:#7a5a00}
+.vaga.premium{border-color:#e8c766}
+.selo-premium{display:inline-block;font-size:11px;font-weight:800;background:#fdf0c4;color:#7a5a00;padding:2px 8px;border-radius:99px;margin-bottom:6px}
+.reg-btn.premium{grid-column:1/-1;justify-content:center;background:linear-gradient(135deg,#c99a1e,#e8c766);color:#3d2c00;border-color:transparent}
+.mapa-card .reg-btn.premium{background:linear-gradient(135deg,#c99a1e,#e8c766)}
+.reg-btn.premium small{color:#5a4300}
 .aba span{display:inline-block;min-width:22px;font-size:12px;background:var(--verde-claro);color:var(--verde-esc);border-radius:99px;padding:1px 7px;margin-left:4px}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
@@ -306,6 +313,7 @@ footer{text-align:center;font-size:12px;color:#e6cfd5;margin:26px 0 8px}
     <div class="abas" id="abas">
       <button class="aba" data-tipo="Estágio">🎓 Estágio<span id="nEst">0</span></button>
       <button class="aba" data-tipo="Emprego">💼 Emprego<span id="nEmp">0</span></button>
+      <button class="aba" data-tipo="Premium">💎 Premium<span id="nPre">0</span></button>
     </div>
     <div class="chips" id="chipsUF"></div>
     <div class="lista" id="lista"></div>
@@ -375,6 +383,7 @@ const REGIOES = {
   "sudeste":      {nome:"Sudeste",      cor:"var(--r-sudeste)"},
   "sul":          {nome:"Sul",          cor:"var(--r-sul)"},
   "remoto":       {nome:"Remoto",       cor:"var(--verde)"},
+  "premium":      {nome:"Premium",      cor:"#c99a1e"},
 };
 const UF_REG = {REMOTO:"remoto"};
 const UF_NOME = {};
@@ -399,7 +408,7 @@ function restante(ms){
 }
 const linkWhats = (extra="") =>
   `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(CONFIG.mensagemCurriculo+extra)}`;
-const vagasDa = reg => VAGAS.filter(v=>UF_REG[v.uf]===reg);
+const vagasDa = reg => reg==="premium" ? VAGAS.filter(v=>v.tipo==="Premium") : VAGAS.filter(v=>UF_REG[v.uf]===reg);
 function ligarWhats(){ document.querySelectorAll("[data-whats]").forEach(a=>a.href=linkWhats()); }
 
 /* ================= Produtos & calculadora ================= */
@@ -512,11 +521,14 @@ function montarMapa(){
   });
   // botões abaixo do mapa
   const box=document.getElementById("botoesRegiao");
-  ["norte","nordeste","centro-oeste","sudeste","sul","remoto"].forEach(reg=>{
+  ["norte","nordeste","centro-oeste","sudeste","sul","remoto","premium"].forEach(reg=>{
     const vs=vagasDa(reg), q=vs.filter(quente).length;
     const b=document.createElement("button");
-    b.className="reg-btn"+(reg==="remoto"?" remoto":"");
-    b.innerHTML = reg==="remoto"
+    b.className="reg-btn"+(reg==="remoto"?" remoto":"")+(reg==="premium"?" premium":"");
+    const cont=`${vs.length} ${vs.length===1?"vaga":"vagas"}${q?` · 🔥 ${q} nova${q>1?"s":""}`:""}`;
+    b.innerHTML = reg==="premium"
+      ? `💎 <div><b>Vagas Premium</b><small>Corporativas, remotas e híbridas · ${cont}</small></div>`
+      : reg==="remoto"
       ? `🌐 <div><b>Vagas remotas</b><small>${vs.length} ${vs.length===1?"vaga":"vagas"}${q?` · 🔥 ${q} nova${q>1?"s":""}`:""}</small></div>`
       : `<span class="reg-cor" style="background:${REGIOES[reg].cor}"></span><div><b>${REGIOES[reg].nome}</b><small>${vs.length} ${vs.length===1?"vaga":"vagas"}${q?` · 🔥 ${q} nova${q>1?"s":""}`:""}</small></div>`;
     b.onmouseenter=()=>focar(reg); b.onmouseleave=()=>focar(null);
@@ -539,15 +551,17 @@ let regAtual=null, tipoAtual="Estágio", ufAtual="Todos";
 function abrirRegiao(reg){
   regAtual=reg; ufAtual="Todos";
   const vs=vagasDa(reg);
-  const est=vs.filter(v=>v.tipo==="Estágio").length, emp=vs.length-est;
-  // abre na aba que tem mais vagas novas (ou mais vagas)
-  tipoAtual = est>=emp ? "Estágio" : "Emprego";
-  document.getElementById("regTitulo").textContent = reg==="remoto" ? "Vagas remotas 🌐" : `Região ${REGIOES[reg].nome}`;
+  const est=vs.filter(v=>v.tipo==="Estágio").length, emp=vs.filter(v=>v.tipo==="Emprego").length, pre=vs.filter(v=>v.tipo==="Premium").length;
+  // abre na aba que tem mais vagas
+  tipoAtual = reg==="premium" ? "Premium" : (est>=emp && est>=pre ? "Estágio" : (emp>=pre ? "Emprego" : "Premium"));
+  document.getElementById("abas").classList.toggle("so-uma", reg==="premium");
+  document.getElementById("regTitulo").textContent = reg==="remoto" ? "Vagas remotas 🌐" : reg==="premium" ? "Vagas Premium 💎" : `Região ${REGIOES[reg].nome}`;
   const q=vs.filter(quente).length;
   document.getElementById("regSub").textContent =
     `${vs.length} ${vs.length===1?"vaga aberta":"vagas abertas"}` + (q?` · 🔥 ${q} postada${q>1?"s":""} nas últimas 24h`:"");
   document.getElementById("nEst").textContent=est;
   document.getElementById("nEmp").textContent=emp;
+  document.getElementById("nPre").textContent=pre;
   renderLista();
   window.scrollTo(0,0);
   // pop-up de curiosidade: 1x por visita
@@ -559,7 +573,7 @@ function renderLista(){
   document.querySelectorAll(".aba").forEach(a=>a.classList.toggle("ativa",a.dataset.tipo===tipoAtual));
   const base=vagasDa(regAtual).filter(v=>v.tipo===tipoAtual);
   // chips de estado
-  const ufs=[...new Set(vagasDa(regAtual).map(v=>v.uf))].filter(u=>u!=="REMOTO").sort();
+  const ufs=[...new Set(vagasDa(regAtual).map(v=>v.uf))].filter(u=>regAtual==="premium"||u!=="REMOTO").sort();
   const chips=document.getElementById("chipsUF"); chips.innerHTML="";
   if(ufs.length>1){
     ["Todos",...ufs].forEach(u=>{
@@ -571,18 +585,18 @@ function renderLista(){
   const lista=base.filter(v=>ufAtual==="Todos"||v.uf===ufAtual).sort((a,b)=>dataVaga(b)-dataVaga(a));
   const el=document.getElementById("lista"); el.innerHTML="";
   if(!lista.length){
-    el.innerHTML=`<div class="vazio">Ainda não tem vaga de <b>${tipoAtual.toLowerCase()}</b> aqui.<br>Me chama no WhatsApp que eu te aviso quando aparecer! 💬</div>`;
+    el.innerHTML=`<div class="vazio">Ainda não tem vaga ${tipoAtual==="Premium"?"<b>premium</b>":"de <b>"+tipoAtual.toLowerCase()+"</b>"} aqui.<br>Me chama no WhatsApp que eu te aviso quando aparecer! 💬</div>`;
   }
   lista.forEach((v,i)=>{
     const c=document.createElement("div");
-    c.className="vaga"+(quente(v)?" quente":"");
+    c.className="vaga"+(quente(v)?" quente":"")+(v.tipo==="Premium"?" premium":"");
     c.dataset.idx=VAGAS.indexOf(v);
     c.innerHTML=`
       <div class="vaga-topo">
-        <div><h3>${v.cargo}</h3><div class="empresa">${v.empresa}</div></div>
+        <div>${v.tipo==="Premium"?'<span class="selo-premium">💎 Premium</span>':""}<h3>${v.cargo}</h3><div class="empresa">${v.empresa}</div></div>
         <span class="uf">${v.uf==="REMOTO"?"🌐":v.uf}</span>
       </div>
-      <div class="infos"><span>📍 ${v.cidade}${v.uf!=="REMOTO"?" – "+v.uf:""}</span></div>
+      <div class="infos"><span>📍 ${v.cidade}${v.uf!=="REMOTO"?" – "+v.uf:""}</span>${v.modelo?`<span>🏢 ${v.modelo}</span>`:""}</div>
       <div class="tempo-slot"></div>
       <button class="btn btn-vaga">Quero me candidatar</button>`;
     c.querySelector("button").onclick=()=>abrirVaga(v);

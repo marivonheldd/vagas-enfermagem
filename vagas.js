@@ -22,7 +22,12 @@ const CONFIG = {
 
 /* =========================================================
    📋  VAGAS — copie um bloco { ... }, cole e edite.
-   tipo:    "Estágio" ou "Emprego"
+   tipo:    "Estágio", "Emprego" ou "Premium"
+            → "Premium" = vagas fora da assistência (corporativas,
+              qualidade, pesquisa, auditoria, remotas, híbridas...).
+              Aparecem na aba 💎 Premium de cada região e no botão
+              "Vagas Premium" da tela inicial.
+   modelo:  (opcional) "Presencial", "Híbrido" ou "Remoto"
    uf:      sigla do estado (MS, SP, PE...) ou "REMOTO"
    postado: data e hora em que você postou → "AAAA-MM-DD HH:MM"
             (é isso que faz o contador e o selo 🔥 das 24h funcionarem)
@@ -62,4 +67,15 @@ const VAGAS = [
   { cargo:"Técnico(a) de Enfermagem – Saúde Clara", empresa:"Grupo FAPES", cidade:"Brasília", uf:"DF", tipo:"Emprego", postado:"2026-11-17 19:04", link:"https://grupofapes.vagas.solides.com.br/vaga/944546?origem=linkedin" },
   { cargo:"Enfermeiro(a) Supervisor(a) de CME", empresa:"Bioxxi", cidade:"João Pessoa", uf:"PB", tipo:"Emprego", postado:"2026-11-17 19:04", link:"https://bioxxi.inhire.app/operacionais/vagas/fe72d367-d31e-491c-a7d9-d58764bd28d0/joao-pessoapb-supervisor-a-de-cme?source=linkedin" },
   { cargo:"Nursing Informatics Specialist – freelancer (em inglês)", empresa:"Alignerr", cidade:"100% remoto", uf:"REMOTO", tipo:"Emprego", postado:"2026-11-17 19:04", link:"https://www.alignerr.com/jobs/44d401c8-1ecf-4cee-b43b-ae7bd0de2e06?referral-source=linkedin-job" },
+  // 💎 PREMIUM — 19/11
+  { cargo:"Analista de Saúde Interno Jr – Programa de Suporte ao Paciente", empresa:"Humânia (Viveo)", cidade:"São Paulo", uf:"SP", tipo:"Premium", postado:"2026-11-19 18:35", link:"https://humania.gupy.io/job/eyJqb2JJZCI6MTI0NzAyMzksInNvdXJjZSI6ImxpbmtlZGluIn0=?jobBoardSource=linkedin" },
+  { cargo:"Analista Administrativo – Contratos e Prestadores (Saúde)", empresa:"Carinho Holding", cidade:"Jacareí", uf:"SP", tipo:"Premium", modelo:"Presencial", postado:"2026-11-19 18:35", link:"https://coe.vagas.solides.com.br/vaga/955254?origem=linkedin" },
+  { cargo:"Analista de Processos – Acreditação Hospitalar (ONA)", empresa:"Fundação José Silveira", cidade:"Salvador", uf:"BA", tipo:"Premium", postado:"2026-11-19 18:35", link:"https://fundacaojosesilveira.gupy.io/job/eyJqb2JJZCI6MTE5ODYyMDQsInNvdXJjZSI6ImxpbmtlZGluIn0=?jobBoardSource=linkedin" },
+  { cargo:"Analista de Práticas Assistenciais Pl – Centro de Ensino e Pesquisa", empresa:"Einstein Hospital Israelita", cidade:"São Paulo", uf:"SP", tipo:"Premium", postado:"2026-11-19 18:35", link:"https://career8.successfactors.com/career?career_ns=job_listing&company=C0001240283P&navBarLevel=JOB_SEARCH&rcm_site_locale=pt_BR&career_job_req_id=1319001" },
+  { cargo:"Analista de Qualidade", empresa:"CaptaMed", cidade:"Belo Horizonte", uf:"MG", tipo:"Premium", postado:"2026-11-19 18:35", link:"https://captamed.gupy.io/job/eyJqb2JJZCI6MTI5MTY3ODIsInNvdXJjZSI6ImxpbmtlZGluIn0=?jobBoardSource=linkedin" },
+  { cargo:"Analista de Central de Autorização", empresa:"Hospital Adventista de Manaus", cidade:"Manaus", uf:"AM", tipo:"Premium", postado:"2026-11-19 18:35", link:"https://hospitaladventistademanaus.gupy.io/job/eyJqb2JJZCI6MTI4ODA3NjUsInNvdXJjZSI6ImxpbmtlZGluIn0=?jobBoardSource=linkedin" },
+  { cargo:"Analista de Pesquisa Clínica Pl – IDOR Bahia", empresa:"IDOR – Instituto D'Or", cidade:"Salvador", uf:"BA", tipo:"Premium", postado:"2026-11-19 18:35", link:"https://idor.gupy.io/job/eyJqb2JJZCI6MTI5MjE0MTMsInNvdXJjZSI6ImxpbmtlZGluIn0=?jobBoardSource=linkedin" },
+  { cargo:"Analista de OPME Jr", empresa:"Hospital SOS Cárdio", cidade:"Florianópolis", uf:"SC", tipo:"Premium", modelo:"Presencial", postado:"2026-11-19 18:35", link:"https://rhdash.pandape.infojobs.com.br/Detail/3948840?ov=6&xtor=AL-366332662&utm_source=linkedin&utm_medium=referral&utm_campaign=feed&utm_term=organic&utm_content=ats" },
+  { cargo:"Especialista de Desenvolvimento de Mercado", empresa:"Real Hospital Português", cidade:"Recife", uf:"PE", tipo:"Premium", modelo:"Presencial", postado:"2026-11-19 18:35", link:"https://rhp.jobs.recrut.ai/job/HSH6HL?utm_source=linkedin&utm_medium=job_board" },
+  { cargo:"Analista de Saúde II – Enfermagem (20h/semana)", empresa:"HealthBit", cidade:"Campinas", uf:"SP", tipo:"Premium", modelo:"Híbrido", postado:"2026-11-19 18:35", link:"https://jobs.quickin.io/healthbit/jobs/6afdb702c0caeb0013deae73?src=LinkedIn+Limited+Listings" },
 ];
